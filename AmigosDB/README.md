@@ -1,4 +1,4 @@
-# Online Store Database Schema
+# Amigos Database Schema
 
 This repository contains the database schema design for an online store. The schema covers essential aspects of an online retail system, including customers, products, orders, and payments.
 
