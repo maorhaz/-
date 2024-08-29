@@ -113,9 +113,7 @@ Table customers {
   phone VARCHAR(15)
   address VARCHAR(255)
   city VARCHAR(50)
-  state VARCHAR(50)
   postal_code VARCHAR(10)
-  country VARCHAR(50)
   created_at DATETIME
 }
 
@@ -168,3 +166,5 @@ Table inventory {
   change_date DATETIME
   reason VARCHAR(100)
 }
+
+
