@@ -103,6 +103,7 @@ Tracks inventory changes such as stock adjustments or product restocks.
 ### Usage
 
 To visualize this schema, you can use the following dbdiagram.io code:
+<img width="1059" alt="image" src="https://github.com/user-attachments/assets/840c485d-df03-4e5c-bda1-92c101a1e698">
 
 ```plaintext
 Table customers {
@@ -167,5 +168,4 @@ Table inventory {
   reason VARCHAR(100)
 }
 
-<img width="1059" alt="image" src="https://github.com/user-attachments/assets/840c485d-df03-4e5c-bda1-92c101a1e698">
 
