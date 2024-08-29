@@ -167,4 +167,5 @@ Table inventory {
   reason VARCHAR(100)
 }
 
+<img width="1059" alt="image" src="https://github.com/user-attachments/assets/840c485d-df03-4e5c-bda1-92c101a1e698">
 
