@@ -1,70 +1,149 @@
 body {
-    margin: 0 auto;
+    margin: 0;
     background-color: rgb(234, 229, 224);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+}
 
+.main-content {
+    flex: 1;
+    
+    display: flex;
+    position: relative;
+    padding-top: 50px;
 }
 
 h1 {
     font-family: 'Heebo', sans-serif;
     font-size: 32px;
     margin-bottom: 30px;
+    background-color:  rgb(234, 229, 224); 
+    position: relative;
+    z-index: 2; 
+}
+
+.icons-container
+{
+    color: black; 
+}
+
+.icon-container a:hover i {
+    color: #c6be45; 
 }
 
 .content-wrapper {
-    text-align: right; /* Align text to the right */
-    margin-right: 10px; /* Space from the right edge */
+    margin-left: 70%;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 30%;
+    background-color:  rgb(234, 229, 224);
+    text-align: right;
 }
+
+.topbar {
+    background-color: white;
+    color: #ffffff;
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+.topbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.topbar-left .shop-icon img {
+    height: 50px; 
+    width: auto; 
+}
+
+.topbar-right ul {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    flex-direction: row-reverse;
+}
+
+.topbar-right ul li {
+    margin-right: 20px; 
+    margin-left: 0;
+}
+
+.topbar-right ul li a {
+    color:black;
+    text-decoration: none;
+    font-family: 'Heebo', sans-serif;
+    font-size: 16px;
+}
+
+.topbar-right ul li a:hover {
+    color: #c6be45;
+}
+
+.topbar-right ul li a.start-order {
+    background-color: #c6be45;
+    color: #000000;
+    padding: 8px 15px;
+    border-radius: 4px;
+}
+
+.topbar-right ul li a.start-order:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
+
 
 p {
     font-family: 'Heebo', sans-serif;
     font-size: 18px;
     line-height: 1.6;
-    margin: 0; /* Remove default margin to ensure spacing is consistent */
+    margin: 0 0 10px 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 .image-container {
     position: absolute;
-    left: 0; /* Align to the left */
+    left: 0;
     top: 0;
-    width: 70%; /* Adjust width if needed */
-    height: 100vh; /* Full viewport height */
+    width: 70%;
+    height: 100%;
     overflow: hidden;
-    z-index: 1; /* Ensure it's beneath the content but visible */
+    z-index: 1;
+    background-color:  rgb(234, 229, 224);
 }
 
 .image-container img {
-    position: absolute;
-    left: 0; /* Align to the left */
-    top: 0;
-    height: 100%;
-    width: auto;
+    width: 100%;
+    height: 80%;
     object-fit: cover;
     object-position: left;
-    opacity: 0.8; /* Adjust transparency */
+    opacity: 0.8;
 }
 
-
-footer{
+footer {
     z-index: 10;
     background-color: black;
     width: 100%;
-    margin-top: auto;
-
-
-
 }
-.footerContainer
-{
+
+.footerContainer {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-.newsletter
-{
+.newsletter {
     background-color: #c6be45;
     padding: 20px 0;
     margin-bottom: 30px;
@@ -73,16 +152,16 @@ footer{
     justify-content: center;
     flex-wrap: wrap;
 }
-.newsletter h2
-{
+
+.newsletter h2 {
     font-family: 'Heebo', sans-serif;
     color: rgb(0, 0, 0);
-    margin-top: -10px; /* Keeps the h2 at the same height */
+    margin-top: -10px;
     margin-bottom: 10px;
-    margin-left: 20px; /* Adjust this value to move it to the right */
+    margin-left: 20px;
 }
-.newsletter form
-{
+
+.newsletter form {
     display: flex;
 }
 
@@ -95,8 +174,8 @@ footer{
     border-radius: 4px;
     width: 250px;
 }
-.newsletter form button
-{
+
+.newsletter form button {
     font-family: 'Heebo', sans-serif;
     font-size: 16px;
     padding: 8px 15px;
@@ -104,7 +183,6 @@ footer{
     color: #ffffff;
     border: none;
     border-radius: 4px;
-   
 }
 
 .newsletter form button:hover {
@@ -113,67 +191,54 @@ footer{
     cursor: pointer;
 }
 
-.newsletter input
-{
+.newsletter input {
     font-family: 'Heebo', sans-serif;
     outline: none;
     padding: 10px;
     font-size: 18px;
     border: none;
     border-radius: 4px 0 0 4px;
-    width: 60%; /* Percentage width */
-    
+    width: 60%;
 }
-.newsletter input:hover
-{
+
+.newsletter input:hover {
     border: 1px solid black;
-    
 }
 
-
-.socialIcons
-{
-    display:flex;
+.socialIcons {
+    display: flex;
     justify-content: center;
 }
-.socialIcons a
-{
-    font-size: 18px;
+
+.socialIcons a {
     text-decoration: none;
     padding: 10px;
     margin: 10px;
     color: white;
     font-size: 24px;
 }
-.socialIcons a:hover
-{
-    color: #c6be45;;
+
+.socialIcons a:hover {
+    color: #c6be45;
 }
 
-.footerNav
-{
+.footerNav {
     margin: 30px 0;
-    
-
 }
-.footerNav ul
-{
-    display:flex;
+
+.footerNav ul {
+    display: flex;
     justify-content: center;
-    
-
 }
-.footerNav ul li
-{
-    display:flex;
+
+.footerNav ul li {
+    display: flex;
     font-family: 'Heebo', sans-serif;
     justify-content: center;
     color: white;
     margin: 20px;
     cursor: pointer;
     text-decoration: none;
-    
-
 }
 
 .footerNav ul li:not(:last-child)::after {
@@ -182,43 +247,35 @@ footer{
     color: #ffffff;
 }
 
-.footerNav ul li a
-{
+.footerNav ul li a {
     font-size: 16px;
     color: white;
     text-decoration: none;
-
-
 }
 
-.footerNav ul li a:hover
-{
-   color: #c6be45;
-
+.footerNav ul li a:hover {
+    color: #c6be45;
 }
-.footerCopyright
-{
+
+.footerCopyright {
     background-color: black;
     font-family: 'Heebo', sans-serif;
     padding: 20px;
     text-align: center;
 }
-.footerCopyright p
-{
+
+.footerCopyright p {
     color: white;
 }
 
-@media (max-width:700px)
-{
-    .footerNav ul
-    {
+@media (max-width: 700px) {
+    .footerNav ul {
         flex-direction: column;
     }
 
-    .footerNav ul li
-    {
+    .footerNav ul li {
         width: 100%;
         text-align: center;
-        margin:10px;
+        margin: 10px;
     }
 }
