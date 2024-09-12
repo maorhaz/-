@@ -1,0 +1,224 @@
+body {
+    margin: 0 auto;
+    background-color: rgb(234, 229, 224);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+}
+
+h1 {
+    font-family: 'Heebo', sans-serif;
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.content-wrapper {
+    text-align: right; /* Align text to the right */
+    margin-right: 10px; /* Space from the right edge */
+}
+
+p {
+    font-family: 'Heebo', sans-serif;
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 0; /* Remove default margin to ensure spacing is consistent */
+}
+
+.image-container {
+    position: absolute;
+    left: 0; /* Align to the left */
+    top: 0;
+    width: 70%; /* Adjust width if needed */
+    height: 100vh; /* Full viewport height */
+    overflow: hidden;
+    z-index: 1; /* Ensure it's beneath the content but visible */
+}
+
+.image-container img {
+    position: absolute;
+    left: 0; /* Align to the left */
+    top: 0;
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+    object-position: left;
+    opacity: 0.8; /* Adjust transparency */
+}
+
+
+footer{
+    z-index: 10;
+    background-color: black;
+    width: 100%;
+    margin-top: auto;
+
+
+
+}
+.footerContainer
+{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.newsletter
+{
+    background-color: #c6be45;
+    padding: 20px 0;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.newsletter h2
+{
+    font-family: 'Heebo', sans-serif;
+    color: rgb(0, 0, 0);
+    margin-top: -10px; /* Keeps the h2 at the same height */
+    margin-bottom: 10px;
+    margin-left: 20px; /* Adjust this value to move it to the right */
+}
+.newsletter form
+{
+    display: flex;
+}
+
+.newsletter form input {
+    font-family: 'Heebo', sans-serif;
+    outline: none;
+    padding: 8px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    width: 250px;
+}
+.newsletter form button
+{
+    font-family: 'Heebo', sans-serif;
+    font-size: 16px;
+    padding: 8px 15px;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+   
+}
+
+.newsletter form button:hover {
+    background-color: #c6be45;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.newsletter input
+{
+    font-family: 'Heebo', sans-serif;
+    outline: none;
+    padding: 10px;
+    font-size: 18px;
+    border: none;
+    border-radius: 4px 0 0 4px;
+    width: 60%; /* Percentage width */
+    
+}
+.newsletter input:hover
+{
+    border: 1px solid black;
+    
+}
+
+
+.socialIcons
+{
+    display:flex;
+    justify-content: center;
+}
+.socialIcons a
+{
+    font-size: 18px;
+    text-decoration: none;
+    padding: 10px;
+    margin: 10px;
+    color: white;
+    font-size: 24px;
+}
+.socialIcons a:hover
+{
+    color: #c6be45;;
+}
+
+.footerNav
+{
+    margin: 30px 0;
+    
+
+}
+.footerNav ul
+{
+    display:flex;
+    justify-content: center;
+    
+
+}
+.footerNav ul li
+{
+    display:flex;
+    font-family: 'Heebo', sans-serif;
+    justify-content: center;
+    color: white;
+    margin: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    
+
+}
+
+.footerNav ul li:not(:last-child)::after {
+    content: "|";
+    margin-right: 20px;
+    color: #ffffff;
+}
+
+.footerNav ul li a
+{
+    font-size: 16px;
+    color: white;
+    text-decoration: none;
+
+
+}
+
+.footerNav ul li a:hover
+{
+   color: #c6be45;
+
+}
+.footerCopyright
+{
+    background-color: black;
+    font-family: 'Heebo', sans-serif;
+    padding: 20px;
+    text-align: center;
+}
+.footerCopyright p
+{
+    color: white;
+}
+
+@media (max-width:700px)
+{
+    .footerNav ul
+    {
+        flex-direction: column;
+    }
+
+    .footerNav ul li
+    {
+        width: 100%;
+        text-align: center;
+        margin:10px;
+    }
+}
