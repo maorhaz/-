@@ -25,17 +25,18 @@ First, clone the repository to your local machine. Once cloned, you will have an
 
 Open your terminal, navigate to the src folder, and run the following command to install the necessary dependencies:
 npm install express mongodb
-###3. Navigate to the Project Directory
+
+### 3. Navigate to the Project Directory
 
 Move to the src directory inside the project folder using the following command (adjust the path according to where you cloned the repo):
 cd /Users/roeybiton/Desktop/Amigos/Amigos/src
 
-###4. Run the Database Test
+### 4. Run the Database Test
 After navigating to the correct directory, run test.js to verify that the database is connected correctly:
 node test.js
 If the connection is successful, you should see output from the MongoDB database in your terminal.
 
-###5. Run the Server
+### 5. Run the Server
 Once the database connection is confirmed, run the server:
 node server.js
 After running the server, you can open the HTML file you want to work on by navigating to localhost in your browser.
