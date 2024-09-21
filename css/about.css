@@ -42,28 +42,35 @@ h1 {
 }
 
 .topbar {
-    background-color: white;
+    background-color: rgb(237, 226, 226);
     color: #ffffff;
     padding: 15px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
     border-bottom: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
+
+.topbar-left {
+    display: flex;
+    align-items: center;
+}
+
+
 
 .topbar-container {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Already in place */
     align-items: center;
     padding: 0 20px;
 }
 
 .topbar-left .shop-icon img {
     height: 65px;
-    width: 65px;
+    width: 70px;
 }
 
 .topbar-right ul {
@@ -75,16 +82,18 @@ h1 {
 }
 
 .topbar-right ul li {
+    display: flex;
+    align-items: center; 
     margin-right: 30px;
     margin-left: 0;
 }
 
 .topbar-right ul li a {
-    color: black;
+    color:black;
     text-decoration: none;
     font-family: 'Heebo', sans-serif;
-    font-size: 28px;
-    padding: 0 1px;
+    font-size:30px;
+    padding: 0 15px;
 }
 
 .topbar-right ul li a:hover {
@@ -97,6 +106,7 @@ h1 {
     color: #000000;
     padding: 10px 16px;
     border-radius: 10px;
+    top: 10px; 
 }
 
 .topbar-right ul li a.start-order:hover {
