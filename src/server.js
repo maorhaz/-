@@ -1,15 +1,16 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
 const app = express();
-
+const path = require('path'); // Make sure to require path
+const bodyParser = require('body-parser'); // Required to parse JSON bodies
 console.log('Starting server initialization...');
 
 const url = 'mongodb+srv://Roey:1234@amigos.mq3ny.mongodb.net/';
 const dbName = 'amigos';
 
 // Middleware to parse JSON
-app.use(express.json()); // Add this line
-app.use(express.static('public'));
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
 console.log('Middleware set up...');
 
@@ -70,11 +71,16 @@ app.post('/api/create-account', async (req, res) => {
             email: req.body.email,
             phone: parseInt(req.body.phoneNumber),
             address: req.body.address,
+            entrance: req.body.entrance,   // Adding entrance
+            apartment: req.body.apartment, // Adding apartment
+            floor: req.body.floor,         // Adding floor
             city: req.body.city,
             postal_code: parseInt(req.body.postalCode),
             created_at: new Date(),
             newsletter: req.body.newsletter,
+            password: req.body.password, // Assuming you're storing password as plaintext (though it should ideally be hashed)
         };
+        
 
         const result = await collection.insertOne(newUser);
         console.log(`New customer created with ID: ${result.insertedId}`);
@@ -106,6 +112,27 @@ app.get('/api/customers', async (req, res) => {
         await client.close();
     }
 });
+
+app.get('/api/customers', async (req, res) => {
+    const { email, password } = req.query; // Extracting email and password from query parameters
+
+    try {
+        // Fetch user from the database
+        const user = await User.findOne({ email });
+
+        // Check if user exists and if the password matches
+        if (user && await user.isValidPassword(password)) {
+            // Return user details except the password
+            res.json({ firstName: user.first_name });
+        } else {
+            res.status(401).json({ message: 'Invalid email or password' });
+        }
+    } catch (error) {
+        console.error('Error during login:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
 
 console.log('Routes set up...');
 
