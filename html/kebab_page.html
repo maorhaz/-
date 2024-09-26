@@ -12,6 +12,7 @@
 </head>
 
 <body>
+
     <header class="topbar">
         <div class="topbar-container">
             <div class="topbar-left">
@@ -30,19 +31,19 @@
             </nav>
         </div>
     </header>
-    
     <div id="productListing">
-        <img src="../resources/images/cheese_page/cheese_banner.jpeg" class="banner-image">
+
+        <img src="../resources/images/meat_page/meat_banner2.jpeg" class="banner-image">
 
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="amigos_home_page.html">דף הבית</a></li>
-                <li class="breadcrumb-item active" aria-current="page">גבינה</li>
+                <li class="breadcrumb-item active" aria-current="page">קבב ונקניקים</li>
             </ol>
         </nav>
 
-        <h1 class="page-title">גבינה</h1>
-        <p class="page-description">גלו את נתחי הבקר שלנו, עם פריכות ועסיסיות בכל ביס, מהסטייקים המפנקים ועד לנתחים המיוחדים
+        <h1 class="page-title">קבב ונקניקים</h1>
+        <p class="page-description">גלו את נתחי הקבב שלנו, עם פריכות ועסיסיות בכל ביס, מהסטייקים המפנקים ועד לנתחים המיוחדים
             ביותר, שיבטיחו לכם חוויה קולינרית עשירה ובלתי נשכחת במחירים משתלמים במיוחד.</p>
     </div>
     <div class="filter-options">
@@ -138,7 +139,7 @@
     document.addEventListener('DOMContentLoaded', async function() {
     const productGrid = document.getElementById('productGrid');
     const template = document.getElementById('product-card-template');
-    const categoryIdToDisplay = 70;
+    const categoryIdToDisplay = 60;
 
     try {
         const response = await fetch('http://localhost:3000/api/products');

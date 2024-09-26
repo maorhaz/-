@@ -4,11 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>אמיגוס | דגים</title>
+    <title>אמיגוס | בשר</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&display=swap">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/meat_pages.css">
+    <!-- Inside your HTML file -->
+
 </head>
 
 <body>
@@ -30,196 +32,66 @@
             </nav>
         </div>
     </header>
+    <div id="productListing">
+        <img src="..\resources\images\fish_page\fish_banner.jpg" class="banner-image">
 
-    <img src="../resources/images/fish_page/fish_banner.jpg" class="banner-image">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="amigos_home_page.html">דף הבית</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"> דגים</li>
+                </ol>
+            </nav>
 
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="amigos_home_page.html">דף הבית</a></li>
-            <li class="breadcrumb-item active" aria-current="page">עוף</li>
-        </ol>
-    </nav>
-
-    <h1 class="page-title">דגים</h1>
-    <p class="page-description">הכירו את הדגים שלנו – טריים ועשירים בטעמים, הבחירה המושלמת למנות קלות ומזינות עם נגיעה של קסם מהים.</p>
-
-    <div class="filter-options">
-        <select>
-            <option>בקר</option>
-            <option>עוף</option>
-            <option></option>
-            <option></option>
-            <option></option>
-        </select>
-        <select>
-            <option>מחיר</option>
-            <option>עד 50 ₪</option>
-            <option>50 ₪ - 100 ₪</option>
-            <option>100 ₪ - 200 ₪</option>
-            <option>מעל 200 ₪</option>
-        </select>
-        <select>
-            <option>מיון לפי</option>
-            <option>מחיר: מהנמוך לגבוה</option>
-            <option>מחיר: מהגבוה לנמוך</option>
-            <option>פופולריות</option>
-        </select>
+            <h1 class="page-title">דגים</h1>
+            <p class="page-description">דגים</p>
     </div>
 
-    <div class="product-grid">
-        <div class="product-card">
-            <img src="../resources/images/fish_page/amnon.jpg" class="product-image">
-            <div class="product-info">
-                <div class="product-title">מושט (אמנון)</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/fish_page/barbunya.jpg" class="product-image">
-            <div class="product-info">
-                <div class="product-title">ברבוניה</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/fish_page/buri.jpg" class="product-image">
-            <div class="product-info">
-                <div class="product-title">בורי</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/fish_page/intias.jpg" class="product-image">
-            <div class="product-info">
-                <div class="product-title">אינטיאס</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/fish_page/meagre.jpg" class="product-image">
-            <div class="product-info">
-                <div class="product-title">מוסר ים</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/fish_page/sea_bream.jpg" class="product-image">
-            <div class="product-info">
-                <div class="product-title">דניס</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/fish_page/seabass.jpg" class="product-image">
-            <div class="product-info">
-                <div class="product-title">לברק</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/fish_page/tuna.png" class="product-image">
-            <div class="product-info">
-                <div class="product-title">פילה טונה</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/fish_page/salmon_fillet.jpg" class="product-image">
-            <div class="product-info">
-                <div class="product-title">פילה סלמון</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/fish_page/salmon_sliced.jpg" class="product-image">
-            <div class="product-info">
-                <div class="product-title">פילה סלמון פרוס</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-
-            </div>
+        <div class="filter-options">
+            <select id="pageSelector">
+                <option value="cheese_page.html">גבינות</option>
+                <option value="chicken_page.html">עוף</option>
+                <option value="extras_page.html">תוספות</option>
+                <option value="fish_page.html">דגים</option>
+                <option value="kebab_page.html">קבב ונקניקים</option>
+                <option value="lamb_page.html">טלה</option>
+                <option value="meat_page.html">בקר</option>
+                <option value="turkey_chicken_page.html">הודו</option>
+            </select>
+            <select>
+                <option>מחיר</option>
+                <option>עד 50 ₪</option>
+                <option>50 ₪ - 100 ₪</option>
+                <option>100 ₪ - 200 ₪</option>
+                <option>מעל 200 ₪</option>
+            </select>
+            <select>
+                <option>מיון לפי</option>
+                <option>מחיר: מהנמוך לגבוה</option>
+                <option>מחיר: מהגבוה לנמוך</option>
+                <option>פופולריות</option>
+            </select>
         </div>
     
+    <div class="product-grid" id="productGrid">
+        <!-- Product card template -->
+        <template id="product-card-template">
+            <div class="product-card">
+                <img class="product-image">
+                <div class="product-info">
+                    <div class="product-title"></div>
+                    <div class="product-description"></div>
+                    <div class="product-price"></div>
+                    <div class="quantity-selector">
+                        <button class="quantity-btn minus">-</button>
+                        <input type="number" class="quantity-input" value="1" min="1">
+                        <button class="quantity-btn plus">+</button>
+                    </div>
+                    <button class="add-to-cart">הוספה לסל</button>
+                </div>
+            </div>
+        </template>
     </div>
-    
+
     <footer>
         <div class="newsletter">
             <h2>הרשמו לניוזלטר שלנו</h2>
@@ -250,6 +122,69 @@
             <p>© 2024 אמיגוס. כל הזכויות שמורות.</p>
         </div>
     </footer>
+
+    <script src="../java_script/foodselection.js"></script>
+    <script >
+        /*
+        catagories:
+        meat = 10
+        chicken = 20
+        turkey chicken = 30
+        lamb = 40
+        fish = 50
+        kebab = 60
+        cheese = 70
+        extras = 80
+        */
+    document.addEventListener('DOMContentLoaded', async function() {
+    const productGrid = document.getElementById('productGrid');
+    const template = document.getElementById('product-card-template');
+    const categoryIdToDisplay = 50;
+
+    try {
+        const response = await fetch('http://localhost:3000/api/products');
+        const products = await response.json();
+
+        const filteredProducts = products.filter(product => product.category_id === categoryIdToDisplay);
+
+        filteredProducts.forEach(product => {
+            const productCard = template.content.cloneNode(true);
+            const productImage = productCard.querySelector('.product-image');
+            const productTitle = productCard.querySelector('.product-title');
+            const productDescription = productCard.querySelector('.product-description');
+            const productPrice = productCard.querySelector('.product-price');
+            const minusBtn = productCard.querySelector('.quantity-btn.minus');
+            const plusBtn = productCard.querySelector('.quantity-btn.plus');
+            const quantityInput = productCard.querySelector('.quantity-input');
+
+            productImage.src = `../resources/images/meat_page/${product.name.toLowerCase().replace(/ /g, '_')}.png`;
+            productImage.alt = product.name;
+            productTitle.textContent = product.name;
+            productDescription.textContent = product.description || 'תיאור מוצר';
+            productPrice.textContent = product.price ? `₪${product.price}` : 'מחיר לא זמין';
+
+            // Set up quantity selectors
+            minusBtn.addEventListener('click', () => {
+                if (quantityInput.value > 1) {
+                    quantityInput.value = parseInt(quantityInput.value) - 1;
+                }
+            });
+
+            plusBtn.addEventListener('click', () => {
+                quantityInput.value = parseInt(quantityInput.value) + 1;
+            });
+
+            // Append the product card to the grid
+            productGrid.appendChild(productCard);
+        });
+    } catch (error) {
+        console.error('Error fetching or processing product data:', error);
+    }
+});
+
+
+                        
+    </script>
 </body>
 
 </html>

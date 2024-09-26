@@ -30,27 +30,30 @@
             </nav>
         </div>
     </header>
+    <div id="productListing">
 
-    <img src="../resources/images/meat_page/meat_banner2.jpeg" class="banner-image">
+        <img src="../resources/images/meat_page/meat_banner2.jpeg" class="banner-image">
 
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="amigos_home_page.html">דף הבית</a></li>
-            <li class="breadcrumb-item active" aria-current="page">בשר בקר</li>
-        </ol>
-    </nav>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="amigos_home_page.html">דף הבית</a></li>
+                <li class="breadcrumb-item active" aria-current="page">תוספות</li>
+            </ol>
+        </nav>
 
-    <h1 class="page-title">בקר</h1>
-    <p class="page-description">גלו את נתחי הבקר שלנו, עם פריכות ועסיסיות בכל ביס, מהסטייקים המפנקים ועד לנתחים המיוחדים
-        ביותר, שיבטיחו לכם חוויה קולינרית עשירה ובלתי נשכחת במחירים משתלמים במיוחד.</p>
-
+        <h1 class="page-title">תוספות</h1>
+        <p class="page-description">תוספות שמשדרגות כל ארוחה</p>
+    </div>
     <div class="filter-options">
-        <select>
-            <option>בקר</option>
-            <option>עוף</option>
-            <option></option>
-            <option></option>
-            <option></option>
+        <select id="pageSelector">
+            <option value="cheese_page.html">גבינות</option>
+            <option value="chicken_page.html">עוף</option>
+            <option value="extras_page.html">תוספות</option>
+            <option value="fish_page.html">דגים</option>
+            <option value="kebab_page.html">קבב ונקניקים</option>
+            <option value="lamb_page.html">טלה</option>
+            <option value="meat_page.html">בקר</option>
+            <option value="turkey_chicken_page.html">הודו</option>
         </select>
         <select>
             <option>מחיר</option>
@@ -118,43 +121,68 @@
         </div>
     </footer>
 
+
+    <script src="../java_script/foodselection.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const productGrid = document.getElementById('productGrid');
-            const template = document.getElementById('product-card-template');
+        /*
+        catagories:
+        meat = 10
+        chicken = 20
+        turkey chicken = 30
+        lamb = 40
+        fish = 50
+        kebab = 60
+        cheese = 70
+        extras = 80
+        */
+    document.addEventListener('DOMContentLoaded', async function() {
+    const productGrid = document.getElementById('productGrid');
+    const template = document.getElementById('product-card-template');
+    const categoryIdToDisplay = 80;
 
-            fetch('http://localhost:3000/api/products')
-                .then(response => response.json())
-                .then(products => {
-                    products.forEach(product => {
-                        const productCard = template.content.cloneNode(true);
-                        
-                        productCard.querySelector('.product-image').src = `../resources/images/meat_page/${product.name.toLowerCase().replace(/ /g, '_')}.png`;
-                        productCard.querySelector('.product-image').alt = product.name;
-                        productCard.querySelector('.product-title').textContent = product.name;
-                        productCard.querySelector('.product-description').textContent = product.description || 'תיאור מוצר';
-                        productCard.querySelector('.product-price').textContent = product.price ? `₪${product.price}` : 'מחיר לא זמין';
+    try {
+        const response = await fetch('http://localhost:3000/api/products');
+        const products = await response.json();
 
-                        // Set up quantity selectors
-                        const minusBtn = productCard.querySelector('.quantity-btn.minus');
-                        const plusBtn = productCard.querySelector('.quantity-btn.plus');
-                        const quantityInput = productCard.querySelector('.quantity-input');
+        const filteredProducts = products.filter(product => product.category_id === categoryIdToDisplay);
 
-                        minusBtn.addEventListener('click', () => {
-                            if (quantityInput.value > 1) {
-                                quantityInput.value = parseInt(quantityInput.value) - 1;
-                            }
-                        });
+        filteredProducts.forEach(product => {
+            const productCard = template.content.cloneNode(true);
+            const productImage = productCard.querySelector('.product-image');
+            const productTitle = productCard.querySelector('.product-title');
+            const productDescription = productCard.querySelector('.product-description');
+            const productPrice = productCard.querySelector('.product-price');
+            const minusBtn = productCard.querySelector('.quantity-btn.minus');
+            const plusBtn = productCard.querySelector('.quantity-btn.plus');
+            const quantityInput = productCard.querySelector('.quantity-input');
 
-                        plusBtn.addEventListener('click', () => {
-                            quantityInput.value = parseInt(quantityInput.value) + 1;
-                        });
+            productImage.src = `../resources/images/meat_page/${product.name.toLowerCase().replace(/ /g, '_')}.png`;
+            productImage.alt = product.name;
+            productTitle.textContent = product.name;
+            productDescription.textContent = product.description || 'תיאור מוצר';
+            productPrice.textContent = product.price ? `₪${product.price}` : 'מחיר לא זמין';
 
-                        productGrid.appendChild(productCard);
-                    });
-                })
-                .catch(error => console.error('Error fetching products:', error));
+            // Set up quantity selectors
+            minusBtn.addEventListener('click', () => {
+                if (quantityInput.value > 1) {
+                    quantityInput.value = parseInt(quantityInput.value) - 1;
+                }
+            });
+
+            plusBtn.addEventListener('click', () => {
+                quantityInput.value = parseInt(quantityInput.value) + 1;
+            });
+
+            // Append the product card to the grid
+            productGrid.appendChild(productCard);
         });
+    } catch (error) {
+        console.error('Error fetching or processing product data:', error);
+    }
+});
+
+
+                        
     </script>
 </body>
 

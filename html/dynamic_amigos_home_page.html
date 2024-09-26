@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&display=swap">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/amigos_style.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
 </head>
 <body>
     <header class="topbar">
@@ -67,68 +68,17 @@
         </div>
     </section>
 
+    <!-- dynamic cards - menue -->
     <section class="content py-5">
         <div class="container">
             <h1 class="text-center mb-5">אצלנו תוכלו למצוא...</h1>
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-                <div class="col">
-                    <div class="card mb-4">
-                        <img src="../resources/images/meat2.jpg" class="card-img-top" alt="בקר ועגל">
-                        <div class="card-body">
-                            <h5 class="card-title">בקר ועגל</h5>
-                            <p class="card-text"></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card mb-4">
-                        <img src="../resources/images/chicken.jpg" class="card-img-top" alt="עוף">
-                        <div class="card-body">
-                            <h5 class="card-title">עוף</h5>
-                            <p class="card-text"></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card mb-4">
-                        <img src="../resources/images/fish.jpg" class="card-img-top" alt="דגים">
-                        <div class="card-body">
-                            <h5 class="card-title">דגים</h5>
-                            <p class="card-text"></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card mb-4">
-                        <img src="../resources/images/cheese.jpg" class="card-img-top" alt="גבינות">
-                        <div class="card-body">
-                            <h5 class="card-title">גבינות</h5>
-                            <p class="card-text"></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card mb-4">
-                        <img src="../resources/images/dry.jpg" class="card-img-top" alt="מזווה">
-                        <div class="card-body">
-                            <h5 class="card-title">המזווה</h5>
-                            <p class="card-text"></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card mb-4">
-                        <img src="../resources/images/alcohol.jpg" class="card-img-top" alt="אלכוהול">
-                        <div class="card-body">
-                            <h5 class="card-title">אלכוהול</h5>
-                            <p class="card-text"></p>
-                        </div>
-                    </div>
-                </div>
+            <div class="row row-cols-1 row-cols-md-3 g-4" id="dynamic-grid">
+                <!-- Cards will be dynamically added here -->
             </div>
         </div>
     </section>
-
+    
+        
     <footer>
         <div class="newsletter">
             <h2>הרשמו לניוזלטר שלנו</h2>
@@ -164,6 +114,10 @@
         <i class="bi bi-whatsapp"></i>
     </a>
 
+
+    <script src="../java_script/home_page_dynamic.js"></script>
+    <script src="../java_script/dynamic_cards_homepage.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
