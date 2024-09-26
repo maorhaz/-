@@ -66,203 +66,24 @@
         </select>
     </div>
 
-    <div class="product-grid">
-        <div class="product-card">
-            <img src="../resources/images/chicken_page/chicken_breast.png" class="product-image">
-            <div class="product-info">
-                <div class="product-title">חזה עוף</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
+    <div class="product-grid" id="productGrid">
+        <!-- Product card template -->
+        <template id="product-card-template">
+            <div class="product-card">
+                <img class="product-image">
+                <div class="product-info">
+                    <div class="product-title"></div>
+                    <div class="product-description"></div>
+                    <div class="product-price"></div>
+                    <div class="quantity-selector">
+                        <button class="quantity-btn minus">-</button>
+                        <input type="number" class="quantity-input" value="1" min="1">
+                        <button class="quantity-btn plus">+</button>
+                    </div>
+                    <button class="add-to-cart">הוספה לסל</button>
                 </div>
-                <button class="add-to-cart">הוספה לסל</button>
-
             </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/chicken_page/sliced ​_chicken_breast_schnitzel.png" class="product-image">
-            <div class="product-info">
-                <div class="product-title">חזה עוף פרוס - שניצל</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/chicken_page/chicken_hearts.png" class="product-image">
-            <div class="product-info">
-                <div class="product-title">לבבות</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/chicken_page/chicken_legs.png" class="product-image">
-            <div class="product-info">
-                <div class="product-title">שוקיים</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/chicken_page/chicken_liver.png" class="product-image">
-            <div class="product-info">
-                <div class="product-title">כבד עוף</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/chicken_page/chicken_tenders.png" class="product-image">
-            <div class="product-info">
-                <div class="product-title">שיפודי פרגית</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/chicken_page/chicken_thighs.png" class="product-image">
-            <div class="product-info">
-                <div class="product-title">כרעיים</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/chicken_page/chicken_wings.png" class="product-image">
-            <div class="product-info">
-                <div class="product-title">כנפיים</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/chicken_page/chinese_chicken.png" class="product-image">
-            <div class="product-info">
-                <div class="product-title">עוף סיני</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/chicken_page/minced_chicken.png" class="product-image">
-            <div class="product-info">
-                <div class="product-title">טחון עוף</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/chicken_page/minced_pullet.png" class="product-image">
-            <div class="product-info">
-                <div class="product-title">טחון פרגית</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/chicken_page/pullet.png" class="product-image">
-            <div class="product-info">
-                <div class="product-title">פרגית</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/chicken_page/whole_chicken.png" class="product-image">
-            <div class="product-info">
-                <div class="product-title">עוף שלם</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-
-            </div>
-        </div>
-    
+        </template>
     </div>
 
 
@@ -298,6 +119,8 @@
             <p>© 2024 אמיגוס. כל הזכויות שמורות.</p>
         </div>
     </footer>
+
+    <script src="../java_script/chicken_page.js"></script>
 </body>
 
 </html>
