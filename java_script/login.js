@@ -44,21 +44,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('An error occurred while creating the account.');
             }
         });
-    }
 
-    // login
     if (loginForm) {
         loginForm.addEventListener('submit', async function (e) {
             e.preventDefault();
-
-            const loginData = {
-                email: document.getElementById('email').value,
-                password: document.getElementById('password').value,
-            };
-
-            // Simulate login (replace with actual logic later)
-            console.log('Login Data:', loginData);
-            alert('Login successful! (Simulated)');
+    
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+    
+            try {
+                const response = await fetch(`http://localhost:3000/api/customers?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
+    
+                if (response.ok) {
+                    const data = await response.json();
+                    const username = data.firstName || 'Guest';
+    
+                    // Store the username in sessionStorage
+                    sessionStorage.setItem('username', username);
+                    alert(username);
+                    // Redirect to the home page
+                    window.location.href = '../html/amigos_home_page.html';
+                } else {
+                    const errorData = await response.json();
+                    alert(`Login failed: ${errorData.message}`);
+                }
+            } catch (error) {
+                console.error('Error during login:', error);
+                alert('An error occurred during login.');
+            }
         });
-    }
-});
+    } 
+ }
+    });
