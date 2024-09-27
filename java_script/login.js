@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
                     // Store the username in sessionStorage
                     sessionStorage.setItem('username', username);
-                    alert(username);
+                
                     // Redirect to the home page
                     window.location.href = '../html/amigos_home_page.html';
                 } else {
