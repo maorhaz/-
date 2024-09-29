@@ -64,205 +64,25 @@
             </select>
         </div>
 
-    <div class="product-grid">
-        <div class="product-card">
-            <img src="../resources/images/cheese_page/emmental.jpg" class="product-image">
-            <div class="product-info">
-                <div class="product-title">שם מוצר</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
+        <div class="product-grid" id="productGrid">
+            <!-- Product card template -->
+            <template id="product-card-template">
+                <div class="product-card">
+                    <img class="product-image">
+                    <div class="product-info">
+                        <div class="product-title"></div>
+                        <div class="product-description"></div>
+                        <div class="product-price"></div>
+                        <div class="quantity-selector">
+                            <button class="quantity-btn minus">-</button>
+                            <input type="number" class="quantity-input" value="1" min="1">
+                            <button class="quantity-btn plus">+</button>
+                        </div>
+                        <button class="add-to-cart">הוספה לסל</button>
+                    </div>
                 </div>
-                <button class="add-to-cart">הוספה לסל</button>
-                
-            </div>
+            </template>
         </div>
-        <div class="product-card">
-            <img src="../resources/images/cheese_page/english_orange_cheddar.jpg" class="product-image">
-            <div class="product-info">
-                <div class="product-title">שם מוצר</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-                
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/cheese_page/french_brie.jpg" class="product-image">
-            <div class="product-info">
-                <div class="product-title">שם מוצר</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-                
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/cheese_page/gouda_cumin.jpg" class="product-image">
-            <div class="product-info">
-                <div class="product-title">שם מוצר</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-                
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/cheese_page/gouda_goat.jpg" class="product-image">
-            <div class="product-info">
-                <div class="product-title">שם מוצר</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-                
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/cheese_page/gouda_green_pesto.jpg" class="product-image">
-            <div class="product-info">
-                <div class="product-title">שם מוצר</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-                
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/cheese_page/gouda_red_pesto.jpg"  class="product-image">
-            <div class="product-info">
-                <div class="product-title">שם מוצר</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-                
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/cheese_page/gouda_lemon_black.jpg"  class="product-image">
-            <div class="product-info">
-                <div class="product-title">שם מוצר</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-                
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/cheese_page/gouda_tricolor.jpg"  class="product-image">
-            <div class="product-info">
-                <div class="product-title">שם מוצר</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-                
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/cheese_page/italian_mozzarella.jpg"  class="product-image">
-            <div class="product-info">
-                <div class="product-title">שם מוצר</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-                
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/cheese_page/manchego.jpg"  class="product-image">
-            <div class="product-info">
-                <div class="product-title">שם מוצר</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-                
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/cheese_page/old_amsterdam.jpg" class="product-image">
-            <div class="product-info">
-                <div class="product-title">שם מוצר</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-                
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="../resources/images/cheese_page/turkish_kashkabal.jpg"  class="product-image">
-            <div class="product-info">
-                <div class="product-title">שם מוצר</div>
-                <div class="product-description">תיאור מוצר</div>
-                <div class="product-price">₪0</div>
-                <div class="quantity-selector">
-                    <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
-                </div>
-                <button class="add-to-cart">הוספה לסל</button>
-                
-            </div>
-        </div>
-
-       
-    </div>
 
     <footer>
         <div class="newsletter">
@@ -294,5 +114,6 @@
         <p>© 2024 אמיגוס. כל הזכויות שמורות.</p>
     </div>
 </footer>
+<script src="../java_script/cheese_page.js"></script>
 </body>
 </html>
