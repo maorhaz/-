@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&display=swap">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/meat_pages.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
 </head>
 
 <body>
@@ -31,19 +31,20 @@
         </div>
     </header>
     <div id="productListing">
-
         <img src="../resources/images/meat_page/meat_banner2.jpeg" class="banner-image">
 
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="amigos_home_page.html">דף הבית</a></li>
-                <li class="breadcrumb-item active" aria-current="page">תוספות</li>
+                <li class="breadcrumb-item active" aria-current="page">בשר בקר</li>
             </ol>
         </nav>
 
-        <h1 class="page-title">תוספות</h1>
-        <p class="page-description">תוספות שמשדרגות כל ארוחה</p>
+        <h1 class="page-title">בקר</h1>
+        <p class="page-description">גלו את נתחי הבקר שלנו, עם פריכות ועסיסיות בכל ביס, מהסטייקים המפנקים ועד לנתחים המיוחדים
+            ביותר, שיבטיחו לכם חוויה קולינרית עשירה ובלתי נשכחת במחירים משתלמים במיוחד.</p>
     </div>
+
     <div class="filter-options">
         <select id="pageSelector">
             <option value="cheese_page.html">גבינות</option>
@@ -121,8 +122,6 @@
         </div>
     </footer>
 
-
-    <script src="../java_script/foodselection.js"></script>
     <script>
         /*
         catagories:
@@ -138,7 +137,7 @@
     document.addEventListener('DOMContentLoaded', async function() {
     const productGrid = document.getElementById('productGrid');
     const template = document.getElementById('product-card-template');
-    const categoryIdToDisplay = 80;
+    const categoryIdToDisplay = 10;
 
     try {
         const response = await fetch('http://localhost:3000/api/products');
@@ -180,9 +179,7 @@
         console.error('Error fetching or processing product data:', error);
     }
 });
-
-
-                        
+               
     </script>
 </body>
 

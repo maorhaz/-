@@ -21,11 +21,11 @@
             </div>
             <nav class="topbar-right">
                 <ul>
-                    <li><a href="order.html" class="start-order">התחל הזמנה</a></li>
-                    <li><a href="search.html"><i class="bi bi-search"></i></a></li>
+                    <li><a href="menu.html"><i class="bi bi-list"></i></a></li>
                     <li><a href="login.html"><i class="bi bi-person"></i></a></li>
                     <li><a href="cart.html"><i class="bi bi-cart2"></i></a></li>
-                    <li><a href="menu.html"><i class="bi bi-list"></i></a></li>
+                    <li><a href="search.html"><i class="bi bi-search"></i></a></li>
+                    <li><a href="order.html" class="start-order">התחל הזמנה</a></li>
                 </ul>
             </nav>
         </div>
@@ -86,8 +86,24 @@
                         <button class="quantity-btn plus">+</button>
                     </div>
                     <button class="add-to-cart">הוספה לסל</button>
+    <div class="product-grid" id="productGrid">
+        <!-- Product card template -->
+        <template id="product-card-template">
+            <div class="product-card">
+                <img class="product-image">
+                <div class="product-info">
+                    <div class="product-title"></div>
+                    <div class="product-description"></div>
+                    <div class="product-price"></div>
+                    <div class="quantity-selector">
+                        <button class="quantity-btn minus">-</button>
+                        <input type="number" class="quantity-input" value="1" min="1">
+                        <button class="quantity-btn plus">+</button>
+                    </div>
+                    <button class="add-to-cart">הוספה לסל</button>
                 </div>
             </div>
+        </template>
         </template>
     </div>
 
@@ -122,18 +138,15 @@
         </div>
     </footer>
 
-    <script src="../java_script/foodselection.js"></script>
     <script>
         /*
         catagories:
         meat = 10
         chicken = 20
-        turkey chicken = 30
-        lamb = 40
-        fish = 50
-        kebab = 60
-        cheese = 70
-        extras = 80
+        fish = 30
+        cheese = 40
+        pantry = 50
+        alcohol = 60
         */
     document.addEventListener('DOMContentLoaded', async function() {
     const productGrid = document.getElementById('productGrid');
