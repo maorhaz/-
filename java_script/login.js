@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // create account
+    // Create account
     const createAccountForm = document.querySelector('.form-create-account');
     const loginForm = document.querySelector('.form-login');
 
@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
         createAccountForm.addEventListener('submit', async function (e) {
             e.preventDefault();
 
-            //form data
+            // Form data
             const formData = {
                 firstName: document.getElementById('first-name').value,
                 lastName: document.getElementById('last-name').value,
@@ -35,9 +35,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     const data = await response.json();
                     console.log('Account Creation Response:', data);
                     alert('Account created successfully!');
+
+                    // Store first name in localStorage
+                    localStorage.setItem('username', formData.firstName);
+                    // Redirect to home page
+                    window.location.href = '../html/amigos_home_page.html';
                 } else {
-                    console.error('Error creating account:', response.statusText);
-                    alert('Failed to create account.');
+                    const errorData = await response.json();
+                    console.error('Error creating account:', errorData);
+                    alert(`Failed to create account: ${errorData.message}`);
                 }
             } catch (error) {
                 console.error('Error:', error);
