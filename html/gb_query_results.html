@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amigos Shop Analytics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Heebo', sans-serif;
+            background-color: #EAE5E0;
+        }
+        .btn-primary {
+            background-color: #c6be45;
+            border-color: black;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #cabd0d;
+            border-color: black;
+            color: black;
+        }
+        .table-container {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .table-container.show {
+            opacity: 1;
+        }
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .apply-btn {
+            background-color: #c6be45;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .apply-btn:hover {
+            background-color: #cabd0d;
+        }
+        .view-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold mb-8 text-center">Amigos Shop Analytics</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <button id="btnProductsByCategory" onclick="loadProductsByCategory()" class="btn-primary text-black font-bold py-3 px-6 rounded-full shadow-lg hover:shadow-xl">
+                Products by Category
+            </button>
+            <button id="btnTopSellingProducts" onclick="loadTopSellingProducts()" class="btn-primary text-black font-bold py-3 px-6 rounded-full shadow-lg hover:shadow-xl">
+                Top Selling Products
+            </button>
+            <button id="btnAveragePriceByCategory" onclick="loadAveragePriceByCategory()" class="btn-primary text-black font-bold py-3 px-6 rounded-full shadow-lg hover:shadow-xl">
+                Average Price by Category
+            </button>
+        </div>
+
+        <div class="mb-8 view-controls">
+            <select id="viewType" class="bg-white border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="table">Table View</option>
+                <option value="chart">Chart View</option>
+            </select>
+            <button class="apply-btn" onclick="applyViewChange()">Apply</button>
+        </div>
+
+        <div id="resultsContainer" class="mb-8">
+            <div id="tableResults" class="table-container"></div>
+            <div id="chartResults" class="hidden">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <script>
+        let productsData = [];
+        let chart;
+        let currentLoadFunction = null;
+
+        const categoryMap = {
+            '10': 'Meat',
+            '20': 'Chicken',
+            '30': 'Fish',
+            '40': 'Cheese',
+            '50': 'Pantry',
+            '60': 'Alcohol'
+        };
+
+        function getCategoryName(categoryId) {
+            return categoryMap[categoryId] || `Category ${categoryId}`;
+        }
+
+        async function fetchProducts() {
+            if (productsData.length === 0) {
+                const response = await fetch('http://localhost:3000/api/products');
+                productsData = await response.json();
+            }
+            return productsData;
+        }
+
+        async function loadProductsByCategory() {
+            const products = await fetchProducts();
+            const groupedProducts = _.groupBy(products, 'category_id');
+            const result = Object.entries(groupedProducts).map(([category, products]) => ({
+                category: getCategoryName(category),
+                count: products.length,
+                Average_Price: _.meanBy(products, 'price')
+            }));
+            currentLoadFunction = loadProductsByCategory;
+            displayResults(result, 'Products by Category');
+        }
+
+        async function loadTopSellingProducts() {
+            const products = await fetchProducts();
+            const sortedProducts = _.orderBy(products, ['stock_quantity'], ['desc']);
+            const topProducts = _.take(sortedProducts, 10);
+            currentLoadFunction = loadTopSellingProducts;
+            displayResults(topProducts.map(p => ({ name: p.name, stock: p.stock_quantity })), 'Top Selling Products');
+        }
+
+        async function loadAveragePriceByCategory() {
+            const products = await fetchProducts();
+            const groupedProducts = _.groupBy(products, 'category_id');
+            const result = Object.entries(groupedProducts).map(([category, products]) => ({
+                category: getCategoryName(category),
+                averagePrice: _.meanBy(products, 'price')
+            }));
+            currentLoadFunction = loadAveragePriceByCategory;
+            displayResults(result, 'Average Price by Category');
+        }
+
+        function applyViewChange() {
+            if (currentLoadFunction) {
+                currentLoadFunction();
+            }
+        }
+
+        function displayResults(data, title) {
+            const viewType = document.getElementById('viewType').value;
+            if (viewType === 'table') {
+                displayTable(data, title);
+            } else {
+                displayChart(data, title);
+            }
+        }
+
+        function displayTable(data, title) {
+            let tableHtml = `<div class="card p-6"><h2 class="text-2xl font-bold mb-4">${title}</h2>`;
+            tableHtml += '<div class="overflow-x-auto"><table class="min-w-full bg-white rounded-lg overflow-hidden"><thead><tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">';
+            
+            Object.keys(data[0]).forEach(key => {
+                tableHtml += `<th class="py-3 px-6 text-left">${key}</th>`;
+            });
+            tableHtml += '</tr></thead><tbody class="text-gray-600 text-sm font-light">';
+
+            data.forEach((item, index) => {
+                tableHtml += `<tr class="${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'} hover:bg-gray-100">`;
+                Object.values(item).forEach(value => {
+                    tableHtml += `<td class="py-3 px-6">${typeof value === 'number' ? value.toFixed(2) : value}</td>`;
+                });
+                tableHtml += '</tr>';
+            });
+
+            tableHtml += '</tbody></table></div></div>';
+            document.getElementById('tableResults').innerHTML = tableHtml;
+            document.getElementById('tableResults').classList.add('show');
+            document.getElementById('tableResults').classList.remove('hidden');
+            document.getElementById('chartResults').classList.add('hidden');
+        }
+
+        function displayChart(data, title) {
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const labels = data.map(item => item.category || item.name);
+            const values = data.map(item => item.averagePrice || item.stock || item.count);
+
+            if (chart) {
+                chart.destroy();
+            }
+
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: title,
+                        data: values,
+                        backgroundColor: 'rgba(198, 190, 69, 0.6)',
+                        borderColor: 'rgba(198, 190, 69, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            document.getElementById('tableResults').classList.add('hidden');
+            document.getElementById('chartResults').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
