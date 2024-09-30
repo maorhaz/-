@@ -34,12 +34,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (response.ok) {
                     const data = await response.json();
                     console.log('Account Creation Response:', data);
-                    alert('Account created successfully!');
 
-                    // Store first name in localStorage
-                    localStorage.setItem('username', formData.firstName);
-                    // Redirect to home page
-                    window.location.href = '../html/amigos_home_page.html';
+                    // Store the new user's first name in sessionStorage
+                    sessionStorage.setItem('username', formData.firstName);
+
+                    // Redirect to the home page
+                    window.location.href = '../html/dynamic_amigos_home_page.html';
                 } else {
                     const errorData = await response.json();
                     console.error('Error creating account:', errorData);
@@ -50,7 +50,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('An error occurred while creating the account.');
             }
         });
+    }
 
+    // Login functionality
     if (loginForm) {
         loginForm.addEventListener('submit', async function (e) {
             e.preventDefault();
@@ -59,8 +61,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const password = document.getElementById('password').value;
     
             try {
-                const response = await fetch(`http://localhost:3000/api/customers?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
-    
+                const response = await fetch('http://localhost:3000/api/customers', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password }) // Sends data in the body
+                });                
+
                 if (response.ok) {
                     const data = await response.json();
                     const username = data.firstName || 'Guest';
@@ -80,5 +88,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     } 
- }
-    });
+});

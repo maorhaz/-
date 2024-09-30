@@ -1,11 +1,19 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const greetingText = document.getElementById('greeting');
+    const username = sessionStorage.getItem('username');
+    const greeting = document.getElementById('greeting');
+    const logoutButton = document.getElementById('logout-button');
 
-    // Get the username from sessionStorage
-    const username = sessionStorage.getItem('username') || 'Guest';
-    alert(username);
-    // Update the greeting text
-    if (greetingText) {
-        greetingText.textContent = `Hello, ${username}`;
+    if (username) {
+        greeting.textContent = `ברוך הבא, ${username}!`;
+        logoutButton.style.display = 'block'; // Show logout button
+    } else {
+        greeting.textContent = 'ברוך הבא, אורח!';
+        logoutButton.style.display = 'none'; // Hide logout button
     }
+
+    // Logout functionality
+    logoutButton.addEventListener('click', function() {
+        sessionStorage.removeItem('username');
+        window.location.href = '../html/login.html'; // Redirect to login page after logout
+    });
 });

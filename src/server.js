@@ -1,5 +1,6 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
+const bcrypt = require('bcryptjs');
 const app = express();
 const path = require('path'); // Make sure to require path
 const bodyParser = require('body-parser'); // Required to parse JSON bodies
@@ -17,7 +18,7 @@ console.log('Middleware set up...');
 // Allow CORS for all origins
 app.use((_req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS'); // Add allowed methods
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
 });
@@ -26,35 +27,24 @@ console.log('CORS enabled...');
 
 // Route to fetch products
 app.get('/api/products', async (_req, res) => {
-    console.log('Received request for /api/products');
-
     const client = new MongoClient(url, { serverSelectionTimeoutMS: 5000 });
 
     try {
-        console.log('Attempting to connect to database...');
         await client.connect();
-        console.log('Connected to database successfully');
-
         const db = client.db(dbName);
         const collection = db.collection('products');
-        console.log('Fetching products...');
         const documents = await collection.find({}).toArray();
 
-        console.log(`Fetched ${documents.length} products`);
         res.json(documents);
     } catch (err) {
-        console.error('Error connecting to the database or fetching products', err);
         res.status(500).json({ error: 'Error fetching products' });
     } finally {
         await client.close();
-        console.log('Database connection closed');
     }
 });
 
 // Route to create a new account
 app.post('/api/create-account', async (req, res) => {
-    console.log('Request body:', req.body);
-
     const client = new MongoClient(url, { serverSelectionTimeoutMS: 5000 });
 
     try {
@@ -62,10 +52,11 @@ app.post('/api/create-account', async (req, res) => {
         const db = client.db(dbName);
         const collection = db.collection('customers');
 
-        const newCustomerId = Date.now();
+        // Hash the password before storing it in the database
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
         const newUser = {
-            customer_id: newCustomerId,
+            customer_id: Date.now(),
             first_name: req.body.firstName,
             last_name: req.body.lastName,
             email: req.body.email,
@@ -77,25 +68,25 @@ app.post('/api/create-account', async (req, res) => {
             city: req.body.city,
             postal_code: parseInt(req.body.postalCode),
             created_at: new Date(),
+            password: hashedPassword,  // Store hashed password
             newsletter: req.body.newsletter,
             password: req.body.password, // Assuming you're storing password as plaintext (though it should ideally be hashed)
         };
         
 
         const result = await collection.insertOne(newUser);
-        console.log(`New customer created with ID: ${result.insertedId}`);
-
-        res.status(201).json({ message: 'Account created successfully', customerId: newCustomerId });
+        res.status(201).json({ message: 'Account created successfully', customerId: newUser.customer_id });
     } catch (err) {
-        console.error('Error inserting customer into the database', err);
         res.status(500).json({ error: 'Failed to create account' });
     } finally {
         await client.close();
     }
 });
 
-// Route to fetch all customers
-app.get('/api/customers', async (req, res) => {
+// Login endpoint with password verification
+app.post('/api/customers', async (req, res) => {
+    const { email, password } = req.body;
+
     const client = new MongoClient(url, { serverSelectionTimeoutMS: 5000 });
 
     try {
@@ -103,45 +94,70 @@ app.get('/api/customers', async (req, res) => {
         const db = client.db(dbName);
         const collection = db.collection('customers');
 
-        const customers = await collection.find({}).toArray();
-        res.status(200).json(customers);
-    } catch (err) {
-        console.error('Error fetching customers from the database', err);
-        res.status(500).json({ error: 'Failed to fetch customers' });
+        // Find the customer by email
+        const customer = await collection.findOne({ email });
+
+        if (!customer) {
+            return res.status(404).json({ message: 'Customer not found' });
+        }
+
+        // Compare provided password with hashed password stored in the database
+        const passwordMatch = await bcrypt.compare(password, customer.password);
+
+        if (!passwordMatch) {
+            return res.status(401).json({ message: 'Invalid password' });
+        }
+
+        // If login is successful, return the first name
+        return res.status(200).json({ firstName: customer.first_name });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error' });
     } finally {
         await client.close();
     }
 });
 
-app.get('/api/customers', async (req, res) => {
-    const { email, password } = req.query; // Extracting email and password from query parameters
+
+app.post('/api/admins', async (req, res) => {
+    const { email, password } = req.body;
+
+    const client = new MongoClient(url, { serverSelectionTimeoutMS: 5000 });
 
     try {
-        // Fetch user from the database
-        const user = await User.findOne({ email });
+        await client.connect();
+        const db = client.db(dbName);
+        const collection = db.collection('administrators'); 
 
-        // Check if user exists and if the password matches
-        if (user && await user.isValidPassword(password)) {
-            // Return user details except the password
-            res.json({ firstName: user.first_name });
-        } else {
-            res.status(401).json({ message: 'Invalid email or password' });
+        // Find the admin by email
+        const admin = await collection.findOne({ email });
+
+        if (!admin) {
+            return res.status(404).json({ message: 'Admin not found' });
         }
+
+        // Compare the provided password with the stored password directly
+        if (password !== admin.password) {
+            return res.status(401).json({ message: 'Invalid password' });
+        }
+
+        // If login is successful, return the first name
+        return res.status(200).json({ firstName: admin.first_name });
     } catch (error) {
-        console.error('Error during login:', error);
-        res.status(500).json({ message: 'Internal server error' });
+        res.status(500).json({ message: 'Server error' });
+    } finally {
+        await client.close();
     }
 });
-
 
 console.log('Routes set up...');
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
     console.log(`Server is now running on port ${PORT}`);
     console.log(`You can access the API at http://localhost:${PORT}/api/products`);
     console.log(`You can access the API at http://localhost:${PORT}/api/create-account`);
     console.log(`You can access the API at http://localhost:${PORT}/api/customers`);
-});
+    console.log(`You can access the API at http://localhost:${PORT}/api/admins`);
 
-console.log('Server initialization complete. Waiting for connections...');
+});
