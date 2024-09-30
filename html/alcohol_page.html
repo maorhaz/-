@@ -142,7 +142,13 @@
             const plusBtn = productCard.querySelector('.quantity-btn.plus');
             const quantityInput = productCard.querySelector('.quantity-input');
 
-            productImage.src = `../resources/images/product_id_photos/${product.product_id}.jpg`
+            $.get(`../resources/images/product_id_photos/${product.product_id}.jpg`)
+                .done(function() { 
+                    productImage.src = `../resources/images/product_id_photos/${product.product_id}.jpg`
+                }).fail(function() { 
+                    productImage.src = `../resources/images/product_id_photos/${product.product_id}.png`
+                })
+
             productImage.alt = product.name;
             productTitle.textContent = product.name;
             productDescription.textContent = product.description || 'תיאור מוצר';

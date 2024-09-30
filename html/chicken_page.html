@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&display=swap">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/meat_pages.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
 </head>
 
 <body>
@@ -159,7 +160,13 @@
             const plusBtn = productCard.querySelector('.quantity-btn.plus');
             const quantityInput = productCard.querySelector('.quantity-input');
 
-            productImage.src = `../resources/images/product_id_photos/${product.product_id}.jpg`
+            $.get(`../resources/images/product_id_photos/${product.product_id}.jpg`)
+                .done(function() { 
+                    productImage.src = `../resources/images/product_id_photos/${product.product_id}.jpg`
+                }).fail(function() { 
+                    productImage.src = `../resources/images/product_id_photos/${product.product_id}.png`
+                })
+
             productImage.alt = product.name;
             productTitle.textContent = product.name;
             productDescription.textContent = product.description || 'תיאור מוצר';
