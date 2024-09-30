@@ -96,6 +96,19 @@
         let chart;
         let currentLoadFunction = null;
 
+        const categoryMap = {
+            '10': 'Meat',
+            '20': 'Chicken',
+            '30': 'Fish',
+            '40': 'Cheese',
+            '50': 'Pantry',
+            '60': 'Alcohol'
+        };
+
+        function getCategoryName(categoryId) {
+            return categoryMap[categoryId] || `Category ${categoryId}`;
+        }
+
         async function fetchProducts() {
             if (productsData.length === 0) {
                 const response = await fetch('http://localhost:3000/api/products');
@@ -108,9 +121,9 @@
             const products = await fetchProducts();
             const groupedProducts = _.groupBy(products, 'category_id');
             const result = Object.entries(groupedProducts).map(([category, products]) => ({
-                category_id: category,
+                category: getCategoryName(category),
                 count: products.length,
-                averagePrice: _.meanBy(products, 'price')
+                Average_Price: _.meanBy(products, 'price')
             }));
             currentLoadFunction = loadProductsByCategory;
             displayResults(result, 'Products by Category');
@@ -128,7 +141,7 @@
             const products = await fetchProducts();
             const groupedProducts = _.groupBy(products, 'category_id');
             const result = Object.entries(groupedProducts).map(([category, products]) => ({
-                category_id: category,
+                category: getCategoryName(category),
                 averagePrice: _.meanBy(products, 'price')
             }));
             currentLoadFunction = loadAveragePriceByCategory;
@@ -176,8 +189,8 @@
 
         function displayChart(data, title) {
             const ctx = document.getElementById('myChart').getContext('2d');
-            const labels = data.map(item => item[Object.keys(item)[0]]);
-            const values = data.map(item => item[Object.keys(item)[1]]);
+            const labels = data.map(item => item.category || item.name);
+            const values = data.map(item => item.averagePrice || item.stock || item.count);
 
             if (chart) {
                 chart.destroy();
