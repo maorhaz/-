@@ -120,7 +120,6 @@ app.post('/api/customers', async (req, res) => {
 
 app.post('/api/admins', async (req, res) => {
     const { email, password } = req.body;
-
     const client = new MongoClient(url, { serverSelectionTimeoutMS: 5000 });
 
     try {
@@ -135,8 +134,10 @@ app.post('/api/admins', async (req, res) => {
             return res.status(404).json({ message: 'Admin not found' });
         }
 
-        // Compare the provided password with the stored password directly
-        if (password !== admin.password) {
+        // Compare the provided password with the hashed password in the database
+        const passwordMatch = await bcrypt.compare(password, admin.password);
+
+        if (!passwordMatch) {
             return res.status(401).json({ message: 'Invalid password' });
         }
 

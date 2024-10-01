@@ -25,9 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Store the admin name in sessionStorage
                     sessionStorage.setItem('adminName', adminName);
 
-                    alert(1);
                     // Redirect to the admin dashboard
-                    //window.location.href = '../html/admin_dashboard.html';
+                    window.location.href = '../html/gb_query_results.html';
                 } else {
                     const errorData = await response.json();
                     alert(`Admin login failed: ${errorData.message}`);
