@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&display=swap">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../css/meat_pages.css">
+    <link rel="stylesheet" href="../css/products_pages.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
 </head>
 
@@ -15,7 +15,7 @@
     <header class="topbar">
         <div class="topbar-container">
             <div class="topbar-left">
-                <a href="index.html" class="shop-icon">
+                <a href="amigos_home_page.html" class="shop-icon">
                     <img src="../resources/images/general/logo.jpg" alt="Shop Icon">
                 </a>
             </div>
@@ -24,14 +24,41 @@
                     <li><a href="menu.html"><i class="bi bi-list"></i></a></li>
                     <li><a href="login.html"><i class="bi bi-person"></i></a></li>
                     <li><a href="cart.html"><i class="bi bi-cart2"></i></a></li>
-                    <li><a href="search.html"><i class="bi bi-search"></i></a></li>
-                    <li><a href="order.html" class="start-order">התחל הזמנה</a></li>
+                    <li class="search-order-container">
+                        <a href="order.html" class="start-order">התחל הזמנה</a>
+                        <button id="search-icon" aria-label="Open search"><i class="bi bi-search"></i></button>
+                    </li>
                 </ul>
             </nav>
         </div>
+    
+        <div id="search-overlay" class="search-overlay">
+            <div class="search-container">
+                <div class="search-input-wrapper">
+                    <button id="close-search" aria-label="Close search">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                    <input type="text" id="search-input" placeholder="חפש/י מוצרים" aria-label="Search products">
+                    <i class="bi bi-search search-icon"></i>
+                </div>
+                <div id="search-results"></div>
+                <button id="view-all-results" class="view-all-results">צפה בכל התוצאות</button>
+            </div>
+        </div>
+        
+        <template id="search-result-template">
+            <div class="search-result-item">
+                <img class="search-result-image" src="" alt="Product Image">
+                <div class="search-result-info">
+                    <h3 class="search-result-name"></h3>
+                    <p class="search-result-description"></p>
+                    <span class="search-result-price"></span>
+                </div>
+            </div>
+        </template>
     </header>
     <div id="productListing">
-        <img src="../resources/images/meat_page/meat_banner2.jpeg" class="banner-image">
+        <img src="../resources/images/general/meat_banner.jpeg" class="banner-image">
 
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -178,6 +205,7 @@
 
                
     </script>
+     <script src="../java_script/search.js"></script>
 </body>
 
 </html>
