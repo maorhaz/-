@@ -99,28 +99,42 @@
 
             $.get(`../resources/images/product_id_photos/${product.product_id}.jpg`)
                 .done(function() { 
-                    productImage.src = `../resources/images/product_id_photos/${product.product_id}.jpg`
+                    productImage.src = `../resources/images/product_id_photos/${product.product_id}.jpg`;
                 }).fail(function() { 
-                    productImage.src = `../resources/images/product_id_photos/${product.product_id}.png`
-                })
+                    productImage.src = `../resources/images/product_id_photos/${product.product_id}.png`;
+                });
 
             productImage.alt = product.name;
             productTitle.textContent = product.name;
             productDescription.textContent = product.description || 'תיאור מוצר';
-            productPrice.textContent = product.price ? `₪${product.price}` : 'מחיר לא זמין';
+            productPrice.textContent = `₪${product.price}`; 
 
-            // Set up quantity selectors
+            // Function to update the total price
+            const updateTotalPrice = () => {
+                const quantity = parseInt(quantityInput.value);
+                const totalPrice = product.price * quantity;
+                productPrice.textContent = `₪${totalPrice.toFixed(2)}`; 
+            };
+
+            // Set up quantity 
             minusBtn.addEventListener('click', () => {
                 if (quantityInput.value > 1) {
                     quantityInput.value = parseInt(quantityInput.value) - 1;
+                    updateTotalPrice(); 
                 }
             });
 
             plusBtn.addEventListener('click', () => {
                 quantityInput.value = parseInt(quantityInput.value) + 1;
+                updateTotalPrice(); 
             });
 
-            // Append the product card to the grid
+            quantityInput.addEventListener('input', () => {
+                if (quantityInput.value < 0) {
+                    quantityInput.value = 0; 
+                }
+                updateTotalPrice(); 
+            });
             productGrid.appendChild(productCard);
         });
     } catch (error) {

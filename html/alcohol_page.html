@@ -13,24 +13,6 @@
 </head>
 
 <body>
-    <header class="topbar">
-        <div class="topbar-container">
-            <div class="topbar-left">
-                <a href="amigos_home_page.html" class="shop-icon">
-                    <img src="../resources/images/general/logo.jpg" alt="Shop Icon">
-                </a>
-            </div>
-            <nav class="topbar-right">
-                <ul>
-                    <li><a href="order.html" class="start-order">התחל הזמנה</a></li>
-                    <li><a href="search.html"><i class="bi bi-search"></i></a></li>
-                    <li><a href="login.html"><i class="bi bi-person"></i></a></li>
-                    <li><a href="cart.html"><i class="bi bi-cart2"></i></a></li>
-                    <li><a href="menu.html"><i class="bi bi-list"></i></a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
     <div id="productListing">
         <img src="../resources/images/general/alcohol_banner.jpg" class="banner-image">
 
@@ -91,7 +73,7 @@
         pantry = 50
         alcohol = 60
         */
-    document.addEventListener('DOMContentLoaded', async function() {
+        document.addEventListener('DOMContentLoaded', async function() {
     const productGrid = document.getElementById('productGrid');
     const template = document.getElementById('product-card-template');
     const categoryIdToDisplay = 60;
@@ -114,28 +96,42 @@
 
             $.get(`../resources/images/product_id_photos/${product.product_id}.jpg`)
                 .done(function() { 
-                    productImage.src = `../resources/images/product_id_photos/${product.product_id}.jpg`
+                    productImage.src = `../resources/images/product_id_photos/${product.product_id}.jpg`;
                 }).fail(function() { 
-                    productImage.src = `../resources/images/product_id_photos/${product.product_id}.png`
-                })
+                    productImage.src = `../resources/images/product_id_photos/${product.product_id}.png`;
+                });
 
             productImage.alt = product.name;
             productTitle.textContent = product.name;
             productDescription.textContent = product.description || 'תיאור מוצר';
-            productPrice.textContent = product.price ? `₪${product.price}` : 'מחיר לא זמין';
+            productPrice.textContent = `₪${product.price}`; 
 
-            // Set up quantity selectors
+            // Function to update the total price
+            const updateTotalPrice = () => {
+                const quantity = parseInt(quantityInput.value);
+                const totalPrice = product.price * quantity;
+                productPrice.textContent = `₪${totalPrice.toFixed(2)}`; 
+            };
+
+            // Set up quantity 
             minusBtn.addEventListener('click', () => {
                 if (quantityInput.value > 1) {
                     quantityInput.value = parseInt(quantityInput.value) - 1;
+                    updateTotalPrice(); 
                 }
             });
 
             plusBtn.addEventListener('click', () => {
                 quantityInput.value = parseInt(quantityInput.value) + 1;
+                updateTotalPrice(); 
             });
 
-            // Append the product card to the grid
+            quantityInput.addEventListener('input', () => {
+                if (quantityInput.value < 0) {
+                    quantityInput.value = 0; 
+                }
+                updateTotalPrice(); 
+            });
             productGrid.appendChild(productCard);
         });
     } catch (error) {
