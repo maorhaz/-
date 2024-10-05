@@ -73,7 +73,7 @@
         pantry = 50
         alcohol = 60
         */
-        document.addEventListener('DOMContentLoaded', async function() {
+    document.addEventListener('DOMContentLoaded', async function() {
     const productGrid = document.getElementById('productGrid');
     const template = document.getElementById('product-card-template');
     const categoryIdToDisplay = 60;
@@ -93,7 +93,9 @@
             const minusBtn = productCard.querySelector('.quantity-btn.minus');
             const plusBtn = productCard.querySelector('.quantity-btn.plus');
             const quantityInput = productCard.querySelector('.quantity-input');
+            const addToCartBtn = productCard.querySelector('.add-to-cart');
 
+            // Load product image
             $.get(`../resources/images/product_id_photos/${product.product_id}.jpg`)
                 .done(function() { 
                     productImage.src = `../resources/images/product_id_photos/${product.product_id}.jpg`;
@@ -104,40 +106,73 @@
             productImage.alt = product.name;
             productTitle.textContent = product.name;
             productDescription.textContent = product.description || 'תיאור מוצר';
-            productPrice.textContent = `₪${product.price}`; 
+            productPrice.textContent = `₪${product.price}`;
 
-            // Function to update the total price
+            // Update total price function
             const updateTotalPrice = () => {
                 const quantity = parseInt(quantityInput.value);
                 const totalPrice = product.price * quantity;
-                productPrice.textContent = `₪${totalPrice.toFixed(2)}`; 
+                productPrice.textContent = `₪${totalPrice.toFixed(2)}`;
             };
 
-            // Set up quantity 
+            // Set up quantity buttons
             minusBtn.addEventListener('click', () => {
-                if (quantityInput.value > 1) {
+                if (quantityInput.value > 0) {
                     quantityInput.value = parseInt(quantityInput.value) - 1;
-                    updateTotalPrice(); 
+                    updateTotalPrice();
                 }
             });
 
             plusBtn.addEventListener('click', () => {
                 quantityInput.value = parseInt(quantityInput.value) + 1;
-                updateTotalPrice(); 
+                updateTotalPrice();
             });
 
             quantityInput.addEventListener('input', () => {
                 if (quantityInput.value < 0) {
-                    quantityInput.value = 0; 
+                    quantityInput.value = 0;
                 }
-                updateTotalPrice(); 
+                updateTotalPrice();
             });
+
+            // Add to cart functionality
+            addToCartBtn.addEventListener('click', () => {
+                const quantity = parseInt(quantityInput.value);
+                if (quantity > 0) {
+                    addToCart(product, quantity);
+                }
+            });
+
             productGrid.appendChild(productCard);
         });
     } catch (error) {
         console.error('Error fetching or processing product data:', error);
     }
 });
+
+// Function to add product to cart
+function addToCart(product, quantity) {
+    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    
+    const existingItemIndex = cartItems.findIndex(item => item.id === product.product_id);
+    
+    if (existingItemIndex > -1) {
+        // If the item is already in the cart, update the quantity
+        cartItems[existingItemIndex].quantity += quantity;
+    } else {
+        // If not, add it to the cart
+        cartItems.push({
+            id: product.product_id,
+            name: product.name,
+            price: product.price,
+            quantity: quantity,
+        });
+    }
+
+    // Save updated cart items to local storage
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    alert(`הוספת ${quantity} של ${product.name} לסל הקניות`);
+}
                
     </script>
     <script src="../js/search.js"></script>
