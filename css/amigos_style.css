@@ -35,17 +35,6 @@ body {
     letter-spacing: 3px;
 }
 
-/* Button */
-.btn-primary {
-    background-color: #c6be45;
-    border-color: black;
-}
-
-.btn-primary:hover {
-    background-color: #cabd0d;
-    border-color: black;
-    color: black;
-}
 
 /* Cards */
 .card {
