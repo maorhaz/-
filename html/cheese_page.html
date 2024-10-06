@@ -26,8 +26,7 @@
         </nav>
 
         <h1 class="page-title">גבינות</h1>
-        <p class="page-description">גלו את נתחי הבקר שלנו, עם פריכות ועסיסיות בכל ביס, מהסטייקים המפנקים ועד לנתחים המיוחדים
-            ביותר, שיבטיחו לכם חוויה קולינרית עשירה ובלתי נשכחת במחירים משתלמים במיוחד.</p>
+        <p class="page-description">גלו את נתחי הבקר שלנו, עם פריכות ועסיסיות בכל ביס, מהסטייקים המפנקים ועד לנתחים המיוחדים ביותר, שיבטיחו לכם חוויה קולינרית עשירה ובלתי נשכחת במחירים משתלמים במיוחד.</p>
     </div>
 
     <div class="filter-options">
@@ -60,12 +59,12 @@
                         <input type="number" class="quantity-input" value="0" min="0">
                         <button class="quantity-btn plus">+</button>
                     </div>
+                    <div class="total-price"></div>
                     <button class="add-to-cart">הוספה לסל</button>
                 </div>
             </div>
         </template>
     </div>
-
 
     <script>
         /*
@@ -97,31 +96,56 @@
             const minusBtn = productCard.querySelector('.quantity-btn.minus');
             const plusBtn = productCard.querySelector('.quantity-btn.plus');
             const quantityInput = productCard.querySelector('.quantity-input');
+            const addToCartBtn = productCard.querySelector('.add-to-cart');
 
+            // Load product image
             $.get(`../resources/images/product_id_photos/${product.product_id}.jpg`)
                 .done(function() { 
-                    productImage.src = `../resources/images/product_id_photos/${product.product_id}.jpg`
+                    productImage.src = `../resources/images/product_id_photos/${product.product_id}.jpg`;
                 }).fail(function() { 
-                    productImage.src = `../resources/images/product_id_photos/${product.product_id}.png`
-                })
-                
-                productImage.alt = product.name;
+                    productImage.src = `../resources/images/product_id_photos/${product.product_id}.png`;
+                });
+
+            productImage.alt = product.name;
             productTitle.textContent = product.name;
             productDescription.textContent = product.description || 'תיאור מוצר';
-            productPrice.textContent = product.price ? `₪${product.price}` : 'מחיר לא זמין';
+            productPrice.textContent = `₪${product.price}`;
 
-            // Set up quantity selectors
+            // Update total price function
+            const updateTotalPrice = () => {
+                const quantity = parseInt(quantityInput.value);
+                const totalPrice = product.price * quantity;
+                productPrice.textContent = `₪${totalPrice.toFixed(2)}`;
+            };
+
+            // Set up quantity buttons
             minusBtn.addEventListener('click', () => {
-                if (quantityInput.value > 1) {
+                if (quantityInput.value > 0) {
                     quantityInput.value = parseInt(quantityInput.value) - 1;
+                    updateTotalPrice();
                 }
             });
 
             plusBtn.addEventListener('click', () => {
                 quantityInput.value = parseInt(quantityInput.value) + 1;
+                updateTotalPrice();
             });
 
-            // Append the product card to the grid
+            quantityInput.addEventListener('input', () => {
+                if (quantityInput.value < 0) {
+                    quantityInput.value = 0;
+                }
+                updateTotalPrice();
+            });
+
+            // Add to cart functionality
+            addToCartBtn.addEventListener('click', () => {
+                const quantity = parseInt(quantityInput.value);
+                if (quantity > 0) {
+                    addToCart(product, quantity);
+                }
+            });
+
             productGrid.appendChild(productCard);
         });
     } catch (error) {
@@ -129,11 +153,32 @@
     }
 });
 
+// Function to add product to cart
+function addToCart(product, quantity) {
+    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    
+    const existingItemIndex = cartItems.findIndex(item => item.id === product.product_id);
+    
+    if (existingItemIndex > -1) {
+        // If the item is already in the cart, update the quantity
+        cartItems[existingItemIndex].quantity += quantity;
+    } else {
+        // If not, add it to the cart
+        cartItems.push({
+            id: product.product_id,
+            name: product.name,
+            price: product.price,
+            quantity: quantity,
+        });
+    }
 
-                        
+    // Save updated cart items to local storage
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    alert(`הוספת ${quantity} של ${product.name} לסל הקניות`);
+}
     </script>
-     <script src="../js/search.js"></script>
-     <script src="../java_script/header-footer.js"></script>
+    <script src="../js/search.js"></script>
+    <script src="../java_script/header-footer.js"></script>
 </body>
 
 </html>
