@@ -18,7 +18,7 @@
                     document.body.appendChild(footer);
                 }
 
-               
+                setGreeting()
                 initSearch();
             })
             .catch(error => console.error('Error loading header-footer:', error));
