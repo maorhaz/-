@@ -1,3 +1,4 @@
 /index.js
 *.json
 node_modules
+.env

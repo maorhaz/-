@@ -1,15 +1,18 @@
+require('dotenv').config(); 
 const express = require('express');
 const { MongoClient } = require('mongodb');
 const bcrypt = require('bcryptjs');
 const app = express();
-const path = require('path'); // Make sure to require path
-const bodyParser = require('body-parser'); // Required to parse JSON bodies
+const path = require('path');
+const bodyParser = require('body-parser');
+
 console.log('Starting server initialization...');
 
-const url = 'mongodb+srv://Roey:1234@amigos.mq3ny.mongodb.net/';
-const dbName = 'amigos';
+// Environment variables
+const url = process.env.MONGODB_URL;
+const dbName = process.env.DB_NAME;
 
-// Middleware to parse JSON
+// Parse JSON
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
