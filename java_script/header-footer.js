@@ -2,7 +2,7 @@
     let products = [];
 
     document.addEventListener('DOMContentLoaded', function() {
-        fetch('/html/header-footer.html')
+        fetch('/Amigos/html/header-footer.html')
             .then(response => response.text())
             .then(data => {
                 const tempDiv = document.createElement('div');
