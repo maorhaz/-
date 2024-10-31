@@ -174,6 +174,59 @@ app.post('/api/admins', async (req, res) => {
     }
 });
 
+app.post('/create-order', async (req, res) => {
+    const { client, db } = await connectToMongo();
+
+    try {
+        const orderData = req.body;
+
+        // Validate necessary fields
+        if (!orderData.customer_id || !orderData.total_amount) {
+            return res.status(400).json({ error: 'Missing required order data' });
+        }
+
+        // Insert the new order into the 'total_orders' collection
+        const collection = db.collection('total_orders');
+        await collection.insertOne(orderData);
+
+        res.status(201).json({ message: 'Order created successfully' });
+    } catch (error) {
+        console.error('Error creating order:', error);
+        res.status(500).json({ error: 'Failed to create order' });
+    } finally {
+        await client.close();
+    }
+    console.log("Order route processed...");
+});
+
+app.get('/get-shipping-address/:customerId', async (req, res) => {
+    const { client, db } = await connectToMongo();
+    const { customerId } = req.params;
+
+    try {
+        const collection = db.collection('customers');
+        
+        // Find the customer by customer_id
+        const customer = await collection.findOne({ customer_id: parseInt(customerId) });
+
+        if (!customer) {
+            return res.status(404).json({ error: 'Customer not found' });
+        }
+
+        // Send back the address and city
+        res.status(200).json({
+            address: customer.address,
+            city: customer.city
+        });
+    } catch (err) {
+        console.error('Error fetching shipping details:', err);
+        res.status(500).json({ error: 'Failed to retrieve shipping details' });
+    } finally {
+        await client.close();
+    }
+});
+
+
 console.log('Routes set up...');
 
 const PORT = process.env.PORT || 3000;

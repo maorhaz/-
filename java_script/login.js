@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     sessionStorage.setItem('username', formData.firstName);
 
                     // Redirect to the home page
-                    window.location.href = '../html/dynamic_amigos_home_page.html';
+                    window.location.href = '../html/amigos_home_page.html';
                 } else {
                     const errorData = await response.json();
                     console.error('Error creating account:', errorData);
@@ -76,8 +76,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
                     // Store the username in sessionStorage
                     sessionStorage.setItem('username', username);
-                    // Here you would also want to store the customerId if it's available
-                    // Assuming your API returns a customerId on successful login
                     if (data.customerId) {
                         sessionStorage.setItem('customerId', data.customerId.toString());
                     }

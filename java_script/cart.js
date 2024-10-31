@@ -14,7 +14,7 @@ function displayCart(items) {
     cartContainer.innerHTML = ''; // Clear existing items
 
     if (items.length === 0) {
-        cartContainer.innerHTML = '<p>העגלה ריקה</p>'; // Message when cart is empty
+        cartContainer.innerHTML = '<p>העגלה ריקה</p>'; 
         updateCartSummary(items); // Update summary with no items
         return;
     }
@@ -22,7 +22,6 @@ function displayCart(items) {
     items.forEach(item => {
         const itemHTML = `
             <div class="cart-item">
-                <img src="${item.image}" alt="${item.name}">
                 <div class="item-details">
                     <h3>${item.name}</h3>
                     <p>מחיר: ₪${item.price}</p>
@@ -39,7 +38,7 @@ function displayCart(items) {
 
 function updateCartSummary(items) {
     const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    const shipping = subtotal > 0 ? 20 : 0; // Example shipping cost
+    const shipping = subtotal > 0 ? 20 : 0; 
     const total = subtotal + shipping;
 
     document.getElementById('subtotal-amount').textContent = `₪${subtotal.toFixed(2)}`;
@@ -52,16 +51,15 @@ function removeItem(itemId) {
     cartItems = cartItems.filter(item => item.id !== itemId); // Remove item from cart
     localStorage.setItem('cartItems', JSON.stringify(cartItems)); // Update local storage
     loadCart(); // Reload cart
-    updateCartInDatabase(cartItems); // Upload updated cart to MongoDB
+    updateCartInDatabase(cartItems); // Upload cart to MongoDB
 }
 
 function clearCart() {
-    localStorage.removeItem('cartItems'); // Clear local storage
+    localStorage.removeItem('cartItems'); 
     loadCart(); // Reload cart
-    updateCartInDatabase([]); // Clear the cart in MongoDB
+    updateCartInDatabase([]); 
 }
 
-// 
 function updateCartInDatabase(cartItems) {
     const customerId = sessionStorage.getItem('customerId'); 
     const username = sessionStorage.getItem('username'); 
@@ -71,9 +69,6 @@ function updateCartInDatabase(cartItems) {
         username: username,
         cartItems: cartItems
     };
-
-    // Alert the JSON data that will be sent
-    alert('Sending the following data to MongoDB:\n' + JSON.stringify(cartData, null, 2));
 
     fetch('http://localhost:3000/update-cart', {
         method: 'POST',
@@ -89,7 +84,7 @@ function updateCartInDatabase(cartItems) {
         return response.text();
     })
     .then(data => {
-        console.log(data); // Show success message in console
+        console.log(data); 
     })
     .catch(error => {
         console.error('Error updating cart:', error);
@@ -98,12 +93,90 @@ function updateCartInDatabase(cartItems) {
 
 document.getElementById('checkout-button').addEventListener('click', async function() {
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const customerId = sessionStorage.getItem('customerId');
+
+    if (!customerId) {
+        alert('צריך להירשם לאתר כדי לבצע הזמנה');
+        return; 
+    }
 
     if (cartItems.length === 0) {
         alert('העגלה ריקה! אנא הוסף מוצרים לפני שתמשיך.');
         return; // Stop if the cart is empty
     }
-
-    // Save the current cart to MongoDB
+    
     await updateCartInDatabase(cartItems);
+    addPaymentButton(); // Call to add payment button after checkout
 });
+
+function addPaymentButton() {
+    const existingPaymentButton = document.getElementById('payment-button');
+    
+    // Check if the payment button already exists
+    if (existingPaymentButton) return;
+
+    const checkoutButton = document.getElementById('checkout-button');
+    
+    // Create the new payment button
+    const paymentButton = document.createElement('button');
+    paymentButton.id = 'payment-button';
+    paymentButton.classList.add('btn', 'btn-success', 'mt-3', 'w-100');
+    paymentButton.textContent = 'לתשלום לחץ כאן';
+
+    // Append the new button after the checkout button
+    checkoutButton.insertAdjacentElement('afterend', paymentButton);
+
+    // Add event listener to the new payment button
+    paymentButton.addEventListener('click', async function() {
+        const customerId = sessionStorage.getItem('customerId');
+
+        const response = await fetch(`http://localhost:3000/get-shipping-address/${customerId}`);
+        const data = await response.json();
+
+        // Check if the shipping address and city were successfully retrieved
+        if (!response.ok || !data.address || !data.city) {
+            alert('Failed to retrieve shipping details. Please try again later.');
+            return;
+        }
+
+    const shippingAddress = `${data.address}, ${data.city}`
+
+        const totalAmount =  document.getElementById('total-amount').textContent;
+
+        const orderData = {
+            order_id: generateUniqueId(), // Function to generate a unique order ID
+            customer_id: customerId,
+            order_date: new Date().toISOString(),
+            total_amount: totalAmount,
+            status: "הושלם",
+            shipping_address: shippingAddress
+        };
+
+        fetch('http://localhost:3000/create-order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(orderData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to create order');
+            }
+            return response.text();
+        })
+        .then(data => {
+            alert('בוצע בהצלחה! ההזמנה מופיעה באזור האישי.');
+            localStorage.removeItem('cartItems'); // Clear cart after successful order
+            loadCart(); // Reload the empty cart
+        })
+        .catch(error => {
+            console.error('Error creating order:', error);
+            alert('אירעה שגיאה במהלך ביצוע ההזמנה. נסה שוב מאוחר יותר.');
+        });
+    });
+}
+
+function generateUniqueId() {
+    return 'id-' + Math.random().toString(36).substr(2, 9); // Generates a random unique ID
+}
