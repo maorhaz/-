@@ -1,6 +1,6 @@
-require('dotenv').config(); 
+require('dotenv').config();
 const express = require('express');
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb'); // Ensure ObjectId is included
 const bcrypt = require('bcryptjs');
 const app = express();
 const path = require('path');
@@ -21,7 +21,7 @@ console.log('Middleware set up...');
 // Allow CORS for all origins
 app.use((_req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS'); // Add DELETE
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
 });
