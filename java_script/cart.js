@@ -3,12 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('clear-cart-button').addEventListener('click', clearCart);
 });
 
-// Load cart items from local storage or another source
+// Load cart items from local storage or initialize if not available
 function loadCart() {
-    // Retrieve cart items from local storage or initialize if not available
     let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    
-    // Display cart items
     displayCart(cartItems);
 }
 
@@ -55,14 +52,58 @@ function removeItem(itemId) {
     cartItems = cartItems.filter(item => item.id !== itemId); // Remove item from cart
     localStorage.setItem('cartItems', JSON.stringify(cartItems)); // Update local storage
     loadCart(); // Reload cart
+    updateCartInDatabase(cartItems); // Upload updated cart to MongoDB
 }
 
 function clearCart() {
     localStorage.removeItem('cartItems'); // Clear local storage
     loadCart(); // Reload cart
+    updateCartInDatabase([]); // Clear the cart in MongoDB
 }
 
-document.getElementById('checkout-button').addEventListener('click', function() {
-    alert('המשך לתשלום');
-    // Here you would typically redirect to a checkout page
+// 
+function updateCartInDatabase(cartItems) {
+    const customerId = sessionStorage.getItem('customerId'); 
+    const username = sessionStorage.getItem('username'); 
+
+    const cartData = {
+        customerId: customerId,
+        username: username,
+        cartItems: cartItems
+    };
+
+    // Alert the JSON data that will be sent
+    alert('Sending the following data to MongoDB:\n' + JSON.stringify(cartData, null, 2));
+
+    fetch('http://localhost:3000/update-cart', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(cartData) // Use the cartData variable here
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to update cart in database');
+        }
+        return response.text();
+    })
+    .then(data => {
+        console.log(data); // Show success message in console
+    })
+    .catch(error => {
+        console.error('Error updating cart:', error);
+    });
+}
+
+document.getElementById('checkout-button').addEventListener('click', async function() {
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+    if (cartItems.length === 0) {
+        alert('העגלה ריקה! אנא הוסף מוצרים לפני שתמשיך.');
+        return; // Stop if the cart is empty
+    }
+
+    // Save the current cart to MongoDB
+    await updateCartInDatabase(cartItems);
 });
