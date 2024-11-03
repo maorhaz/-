@@ -1,0 +1,62 @@
+body {
+    font-family: 'Heebo', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.personal-area-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: right;
+}
+
+.personal-area-title {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+#login-message {
+    font-size: 1em;
+    color: #856404;
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    border-radius: 4px;
+    padding: 10px;
+    text-align: center;
+}
+
+.latest-order {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.latest-order h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: #007bff;
+}
+
+.latest-order p {
+    font-size: 1.1em;
+    margin: 5px 0;
+}
+
+.latest-order strong {
+    color: #333;
+}
+
+#order-total {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #28a745;
+}

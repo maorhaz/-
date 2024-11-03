@@ -8,20 +8,16 @@ body {
     background-color: rgb(234, 229, 224);
 }
 
-/* Hero Section */
 .hero {
     background-image: url('../resources/images/general/home_page_pic.jpg');
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
     height: 100vh;
     color: #fff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0;
-    padding: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 .hero h1 {
@@ -35,8 +31,6 @@ body {
     letter-spacing: 3px;
 }
 
-
-/* Cards */
 .card {
     position: relative;
     overflow: hidden;
@@ -44,25 +38,19 @@ body {
     height: 300px;
     margin-bottom: 30px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: filter 0.3s ease;
 }
 
 .card-img-top {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: filter 0.3s ease;
 }
 
 .card:hover .card-img-top {
     filter: brightness(40%);
-    
-    
-}
-.card:hover 
-{
     cursor: pointer;
 }
-
 
 .card-body {
     position: absolute;
@@ -77,11 +65,6 @@ body {
     align-items: center;
     text-align: center;
     padding: 20px;
-    transition: background 0.3s ease;
-}
-
-.card:hover .card-body {
-    background: rgba(0, 0, 0, 0.2);
 }
 
 .card-title {
@@ -91,24 +74,18 @@ body {
     font-weight: bold;
 }
 
-.card-text {
-    display: none;
-}
-
 .btn-product {
     background-color: #FFD700;
     color: #000;
     border: none;
     padding: 10px 20px;
     font-weight: bold;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
     text-decoration: none;
     font-size: 1rem;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    white-space: nowrap;
 }
 
 .btn-product:hover {
@@ -116,56 +93,14 @@ body {
     box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
 }
 
-@media (max-width: 767px) {
-    .card {
-        height: 200px;
-    }
-}
-
-/* Video Card */
-.video-card {
-    border: none;
-    box-shadow: none;
-    overflow: hidden;
-    width: 97%;
-    height: 650px;
-}
-
-.video-card video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.video-card:hover {
-    transform: none;
-    cursor: default;
-}
-
-.video-card .card-body {
-    display: none;
-}
-
-.videos-container .row {
-    margin: -10px;
-}
-
-.videos-container .col {
-    padding: 10px;
-}
-
-/* About Us Section */
 .about-us {
     background-image: url('../resources/images/general/black.jpg');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
-    position: relative;
     padding: 80px 0;
 }
 
 .about-us h2 {
-    font-family: 'Heebo', sans-serif;
     font-size: 36px;
     font-weight: 700;
     margin-bottom: 20px;
@@ -173,90 +108,32 @@ body {
 }
 
 .about-us p {
-    font-family: 'Heebo', sans-serif;
     font-size: 18px;
     margin-bottom: 15px;
     line-height: 1.6;
     color: #ffffff;
 }
 
-.about-us .highlight {
-    color: #FFD700;
-    font-weight: bold;
-}
-
-.about-us img {
-    width: 600px;
-    height: 250px;
-    object-fit: cover;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-}
-
-@media (max-width: 767px) {
-    .about-us .col-md-6:first-child {
-        margin-bottom: 20px;
-    }
-}
-
-/* Newsletter */
 .newsletter {
     background-image: url('../resources/images/general/newsletter_pic.jpeg');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
-    position: relative;
     color: white;
     padding: 80px 0;
-    margin-bottom: 40px;
     text-align: center;
-}
-
-.newsletter::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
-.newsletter .container {
     position: relative;
-    z-index: 1;
-    max-width: 700px;
 }
 
 .newsletter h2 {
     font-size: 3rem;
     margin-bottom: 15px;
     color: #c6be45;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .newsletter p {
     font-size: 1.3rem;
     margin-bottom: 25px;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-}
-
-.newsletter .content-box {
-    background-color: rgba(0, 0, 0, 0.6);
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    width: 100%;
-    margin: 0 auto;
-}
-
-.newsletter-form {
-    direction: rtl;
-    text-align: right;
-}
-
-.newsletter-form .form-group {
-    margin-bottom: 20px;
 }
 
 .newsletter-form .form-control {
@@ -266,44 +143,6 @@ body {
     padding: 15px;
     font-size: 1.1rem;
     transition: all 0.3s ease;
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
-    text-align: right;
-}
-
-.newsletter-form .form-control:focus {
-    background-color: rgba(255, 255, 255, 0.3);
-    border-color: #c6be45;
-    box-shadow: 0 0 0 0.2rem rgba(198, 190, 69, 0.25);
-}
-
-.newsletter-form .form-control::placeholder {
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.newsletter-form .form-check {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin-bottom: 20px;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.newsletter-form .form-check-input {
-    margin-right: 0;
-    margin-left: 10px; 
-    order: 2;
-}
-
-.newsletter-form .form-check-label {
-    color: white;
-    font-size: 0.9rem;
-    order: 1;
-    margin-left: 5px; 
-    margin-bottom: -5px;
 }
 
 .newsletter-form .btn-primary {
@@ -313,49 +152,17 @@ body {
     padding: 12px 35px;
     font-weight: bold;
     font-size: 1.1rem;
-    transition: all 0.3s ease;
-    display: block; 
-    margin: 0 auto; 
 }
 
-.newsletter-form .btn-primary:hover {
-    background-color: #dcd786;
-    border-color: #d6ce55;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-@media (max-width: 768px) {
-    .newsletter {
-        padding: 50px 0;
-    }
-    
-    .newsletter h2 {
-        font-size: 2.5rem;
-    }
-    
-    .newsletter p {
-        font-size: 1.2rem;
-    }
-    
-    .newsletter .content-box {
-        padding: 30px;
-    }
-
-    .newsletter-form .form-control,
-    .newsletter-form .form-check {
-        max-width: 100%;
-    }
-}
 .facebook-posts {
     background-color: #f8f9fa;
     padding: 60px 0;
+    text-align: center;
 }
 
 .facebook-posts h2 {
     color: #c6be45;
     font-size: 2.5rem;
-    text-align: center;
     margin-bottom: 40px;
 }
 
@@ -363,62 +170,23 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-#facebook-feed > * {
-    background-color: #ffffff;
-    border: 1px solid #dddfe2;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
-}
-
-#facebook-feed > *:hover {
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
 }
 
 #facebook-feed img {
     width: 100%;
     height: auto;
-    display: block;
+    border: 1px solid #dddfe2;
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease;
 }
 
 #facebook-feed .fb-post-content {
     padding: 12px 16px;
-}
-
-#facebook-feed p {
     font-size: 14px;
-    line-height: 1.5;
     color: #1c1e21;
-    margin-bottom: 10px;
     overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
 }
 
-#facebook-feed a {
-    display: inline-block;
-    color: #385898;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 14px;
-}
-
-#facebook-feed a:hover {
-    text-decoration: underline;
-}
-
-@media (max-width: 768px) {
-    #facebook-feed {
-        grid-template-columns: 1fr;
-    }
-}
-/* WhatsApp Button */
 .whatsapp-button {
     position: fixed;
     bottom: 20px;
@@ -432,15 +200,10 @@ body {
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    text-decoration: none;
     font-size: 24px;
     z-index: 1000;
 }
 
 .whatsapp-button:hover {
     background-color: #128C7E;
-}
-
-.whatsapp-button i {
-    margin: 0;
 }

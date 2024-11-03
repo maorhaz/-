@@ -226,6 +226,31 @@ app.get('/get-shipping-address/:customerId', async (req, res) => {
     }
 });
 
+app.get('/api/orders/all', async (req, res) => {
+    const { customer_id } = req.query;
+
+    if (!customer_id) {
+        return res.status(400).json({ error: 'Customer ID is required' });
+    }
+
+    try {
+        const { client, db } = await connectToMongo();
+        const collection = db.collection('total_orders');
+
+        const orders = await collection.find({ customer_id: customer_id }).toArray();
+
+        if (orders.length > 0) {
+            res.status(200).json(orders);
+        } else {
+            res.status(404).json({ message: 'No orders found for this user' });
+        }
+    } catch (error) {
+        console.error('Error fetching orders:', error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+
 
 console.log('Routes set up...');
 
