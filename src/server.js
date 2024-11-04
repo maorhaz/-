@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const { MongoClient, ObjectId } = require('mongodb'); // Ensure ObjectId is included
+const { MongoClient, ObjectId } = require('mongodb'); 
 const bcrypt = require('bcryptjs');
 const app = express();
 const path = require('path');
@@ -12,13 +12,11 @@ console.log('Starting server initialization...');
 const url = process.env.MONGODB_URL;
 const dbName = process.env.DB_NAME;
 
-// Parse JSON
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 console.log('Middleware set up...');
 
-// Allow CORS for all origins
 app.use((_req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS'); // Add DELETE
@@ -93,7 +91,7 @@ app.post('/api/create-account', async (req, res) => {
     try {
         const collection = db.collection('customers');
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        const customerId = Date.now(); // Consider using a better ID generation method
+        const customerId = Date.now(); 
 
         const newUser = {
             customer_id: customerId,
@@ -139,7 +137,6 @@ app.post('/api/customers', async (req, res) => {
             return res.status(401).json({ message: 'Invalid password' });
         }
 
-        // Include customerId in the response
         res.status(200).json({ firstName: customer.first_name, customerId: customer.customer_id });
     } catch (err) {
         res.status(500).json({ message: 'Server error' });
@@ -180,12 +177,10 @@ app.post('/create-order', async (req, res) => {
     try {
         const orderData = req.body;
 
-        // Validate necessary fields
         if (!orderData.customer_id || !orderData.total_amount) {
             return res.status(400).json({ error: 'Missing required order data' });
         }
 
-        // Insert the new order into the 'total_orders' collection
         const collection = db.collection('total_orders');
         await collection.insertOne(orderData);
 
@@ -213,7 +208,6 @@ app.get('/get-shipping-address/:customerId', async (req, res) => {
             return res.status(404).json({ error: 'Customer not found' });
         }
 
-        // Send back the address and city
         res.status(200).json({
             address: customer.address,
             city: customer.city
