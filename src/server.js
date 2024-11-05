@@ -261,6 +261,9 @@ app.get('/api/orders/all', async (req, res) => {
     }
 });
 
+app.get('*', (_req, res) => {
+    res.sendFile(path.join(__dirname, '../public/html/amigos_home_page.html')); 
+});
 
 console.log('Routes set up...');
 
