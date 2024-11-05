@@ -25,24 +25,29 @@
     });
 
     function setGreeting() {
-
         const username = sessionStorage.getItem('username'); 
+        const adminName = sessionStorage.getItem('adminName'); 
         const greeting = document.getElementById('greeting');
         const logoutButton = document.getElementById('logout-button');
     
-        if (username) {
+        if (adminName) {
+            greeting.textContent = `ברוך הבא, מנהל ${adminName}!`;
+            logoutButton.style.display = 'block'; 
+        } else if (username) {
             greeting.textContent = `ברוך הבא, ${username}!`;
-            logoutButton.style.display = 'block'; // Show logout button
+            logoutButton.style.display = 'block'; 
         } else {
             greeting.textContent = 'ברוך הבא, אורח!';
-            logoutButton.style.display = 'none'; // Hide logout button
+            logoutButton.style.display = 'none'; 
         }
     
         logoutButton.addEventListener('click', function() {
             sessionStorage.removeItem('username');
+            sessionStorage.removeItem('adminName'); 
             window.location.href = '../html/login.html'; 
         });
     }
+    
 
     function initSearch() {
         const searchIcon = document.getElementById('search-icon');

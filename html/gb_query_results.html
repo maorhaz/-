@@ -63,6 +63,15 @@
             gap: 1rem;
         }
     </style>
+    <script>
+        window.onload = function() {
+            const adminName = sessionStorage.getItem('adminName');
+            if (!adminName) {
+                window.location.href = '../html/admin_login.html'; // Change this to your actual login page URL
+            }
+        };
+    </script>
+    
 </head>
 <body class="bg-gray-100 text-gray-900">
     <div class="container mx-auto px-4 py-8">
@@ -225,6 +234,7 @@
             document.getElementById('tableResults').classList.add('hidden');
             document.getElementById('chartResults').classList.remove('hidden');
         }
+        
     </script>
         <script src="../js/search.js"></script>
         <script src="../java_script/header-footer.js"></script>

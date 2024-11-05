@@ -20,13 +20,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (response.ok) {
                     const data = await response.json();
-                    const adminName = data.adminName || 'Admin';
+                    const adminName = data.firstName || 'Admin';
 
                     // Store the admin name in sessionStorage
                     sessionStorage.setItem('adminName', adminName);
 
                     // Redirect to the admin dashboard
-                    window.location.href = '../html/gb_query_results.html';
+                    window.location.href = '../html/admin_menu.html';
                 } else {
                     const errorData = await response.json();
                     alert(`Admin login failed: ${errorData.message}`);
