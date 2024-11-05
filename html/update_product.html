@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <link rel="stylesheet" href="../css/update_product.css">
+    <link rel="stylesheet" href="../css/header-footer.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+</head>
+<body>
+    <div class="product-container">
+        <div class="frame-container">
+            <h2>מחיקת מוצר קיים</h2>
+            <form id="product-list-form" class="frame">
+                <fieldset class="fieldset">
+                    <div class="field">
+                        <label class="label" for="product-list">בחר מוצר</label>
+                        <select id="product-list" name="products" required>
+                            <!-- Options will be added here -->
+                        </select>
+                    </div>
+                </fieldset>
+                <div class="signup-button-container">
+                    <button type="submit" id="signup-button">מחיקת מוצר</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="frame-container">
+            <h2>הוספת מוצר חדש</h2>
+            <form id="new-product-form" class="frame">
+                <fieldset class="fieldset">
+                    <div class="field">
+                        <label class="label" for="product_id">מספר מזהה של המוצר</label>
+                        <input type="number" id="product_id" name="product_id" placeholder="מספר מזהה של המוצר" required>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="name">שם המוצר</label>
+                        <input type="text" id="name" name="name" placeholder="שם המוצר" required>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="description">תיאור המוצר</label>
+                        <input type="text" id="description" name="description" placeholder="תיאור המוצר" required>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="price">מחיר</label>
+                        <input type="number" id="price" name="price" placeholder="מחיר" required>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="category_id">קטגוריה</label>
+                        <select id="category_id" name="category_id" required>
+                            <option value="">בחר קטגוריה</option>
+                            <option value="10">בשר</option>
+                            <option value="20">עוף</option>
+                            <option value="30">דג</option>
+                            <option value="40">גבינה</option>
+                            <option value="50">מזווה</option>
+                            <option value="60">אלכוהול</option>
+                        </select>
+                    </div>
+                </fieldset>
+                <div class="signup-button-container">
+                    <button type="submit" id="signup-button">הוספת מוצר</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="frame-container">
+            <h2>עדכון מוצר קיים</h2>
+            <form id="update-product-form" class="frame">
+                <fieldset class="fieldset">
+                    <div class="field">
+                        <label class="label" for="update-product-list">בחר מוצר</label>
+                        <select id="update-product-list" name="products" required>
+                            <!-- Options will be added here -->
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="update-name">שם חדש למוצר</label>
+                        <input type="text" id="update-name" name="name" placeholder="שם חדש למוצר">
+                    </div>
+                    <div class="field">
+                        <label class="label" for="update-description">תיאור חדש למוצר</label>
+                        <input type="text" id="update-description" name="description" placeholder="תיאור חדש למוצר">
+                    </div>
+                    <div class="field">
+                        <label class="label" for="update-price">מחיר חדש</label>
+                        <input type="number" id="update-price" name="price" placeholder="מחיר חדש">
+                    </div>
+                    <div class="field">
+                        <label class="label" for="update-category_id">קטגוריה חדשה למוצר</label>
+                        <select id="update-category_id" name="category_id">
+                            <option value="">בחר קטגוריה</option>
+                            <option value="10">בשר</option>
+                            <option value="20">עוף</option>
+                            <option value="30">דג</option>
+                            <option value="40">גבינה</option>
+                            <option value="50">מזווה</option>
+                            <option value="60">אלכוהול</option>
+                        </select>
+                    </div>
+                </fieldset>
+                <div class="signup-button-container">
+                    <button type="submit" id="signup-button">עדכון מוצר</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="../java_script/update_product.js"></script>
+    <script src="../js/search.js"></script>
+    <script src="../java_script/header-footer.js"></script>
+</body>
+</html>
