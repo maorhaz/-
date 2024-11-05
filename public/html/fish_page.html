@@ -107,6 +107,8 @@
                     productImage.src = `../resources/images/product_id_photos/${product.product_id}.jpg`;
                 }).fail(function() { 
                     productImage.src = `../resources/images/product_id_photos/${product.product_id}.png`;
+                }).fail(function() {
+                    productImage.src = `../resources/images/general/default.jpg`
                 });
 
             productImage.alt = product.name;
