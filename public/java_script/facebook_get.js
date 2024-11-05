@@ -1,5 +1,3 @@
-// const pageID = "605112776347746"; 
-// const accessToken = "EAAGgmZAiYiEoBOZCvFqZCW8jFst1576486pDzuDsSgfyY53nYYMd3FNSc5bHVrl52D6fZAjJpbZBsOroYPeLZAj813IepIvGlMgrs38sREJuWZANxyQhZCn73dE41h8Lpnr3YlKSppdwCCu9nM8a5uOVt7OsOSlBZATegeqJLofzZByutOsPJAphWttaTfXAw55I2ec8Ww33xZBpk9iMJzIH60aB9MfbGMZD";
 $(document).ready(function() {
     $.ajax({
         url: '/api/config',
