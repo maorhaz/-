@@ -29,7 +29,7 @@ npm install express mongodb
 ### 3. Navigate to the Project Directory
 
 Move to the src directory inside the project folder using the following command (adjust the path according to where you cloned the repo):
-cd /Users/roeybiton/Desktop/Amigos/Amigos/src
+cd /Users/username/Desktop/Amigos/Amigos/src
 
 ### 4. Run the Database Test
 After navigating to the correct directory, run test.js to verify that the database is connected correctly:

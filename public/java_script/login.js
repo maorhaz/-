@@ -35,11 +35,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     const data = await response.json();
                     console.log('Account Creation Response:', data);
 
-                    // Store the new user's first name in sessionStorage
+                    // Store the customerId in sessionStorage
+                    sessionStorage.setItem('customerId', data.customerId.toString());
                     sessionStorage.setItem('username', formData.firstName);
 
                     // Redirect to the home page
-                    window.location.href = '../html/dynamic_amigos_home_page.html';
+                    window.location.href = '../html/amigos_home_page.html';
                 } else {
                     const errorData = await response.json();
                     console.error('Error creating account:', errorData);
@@ -75,6 +76,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
                     // Store the username in sessionStorage
                     sessionStorage.setItem('username', username);
+                    if (data.customerId) {
+                        sessionStorage.setItem('customerId', data.customerId.toString());
+                    }
                 
                     // Redirect to the home page
                     window.location.href = '../html/amigos_home_page.html';
