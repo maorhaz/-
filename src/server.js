@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const { MongoClient } = require('mongodb'); 
+const { MongoClient, ObjectId } = require('mongodb');
 const bcrypt = require('bcryptjs');
 const app = express();
 const path = require('path');
@@ -23,9 +23,10 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 console.log('Middleware set up...');
 
+// Allow CORS for all origins
 app.use((_req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS'); // Add DELETE
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
 });
@@ -258,6 +259,121 @@ app.get('/api/orders/all', async (req, res) => {
     } catch (error) {
         console.error('Error fetching orders:', error);
         res.status(500).json({ error: 'Server error' });
+    }
+});
+
+// Route for fetching each product by ID
+app.get('/api/products/:id', async (req, res) => {
+    const client = new MongoClient(url, { serverSelectionTimeoutMS: 5000 });
+    const productId = req.params.id;
+
+    try {
+        await client.connect();
+        const db = client.db(dbName);
+        const collection = db.collection('products');
+
+        console.log(`Fetching product with ID: ${productId}`);
+
+        const product = await collection.findOne({ _id: new ObjectId(productId) });
+
+        if (product) {
+            res.status(200).json(product);
+        } else {
+            res.status(404).json({ message: 'Product not found' });
+        }
+    } catch (err) {
+        console.error('Error fetching product:', err);
+        res.status(500).json({ error: 'Error fetching product', details: err.message });
+    } finally {
+        await client.close();
+    }
+});
+
+// New product creation route
+app.post('/api/products', async (req, res) => {
+    const client = new MongoClient(url, { serverSelectionTimeoutMS: 5000 });
+
+    try {
+        await client.connect();
+        const db = client.db(dbName);
+        const collection = db.collection('products');
+        const newProduct = req.body;
+
+        console.log('Attempting to add product:', newProduct);
+
+        const result = await collection.insertOne(newProduct);
+
+        // Log result for better clarity
+        console.log('Insert result:', result);
+
+        // Updated condition to check for result.acknowledged
+        if (result.acknowledged && result.insertedId) {
+            console.log('Product added successfully:', newProduct);
+            res.status(201).json({ message: 'Product added successfully', product: newProduct });
+        } else {
+            console.error('Failed to add product:', result);
+            res.status(500).json({ message: 'Failed to add product' });
+        }
+    } catch (err) {
+        console.error('Error adding product:', err);
+        res.status(500).json({ error: 'Error adding product', details: err.message });
+    } finally {
+        await client.close();
+    }
+});
+
+// Update product route
+app.put('/api/products/:id', async (req, res) => {
+    const client = new MongoClient(url, { serverSelectionTimeoutMS: 5000 });
+    const productId = req.params.id;
+    const updatedProduct = req.body;
+
+    try {
+        await client.connect();
+        const db = client.db(dbName);
+        const collection = db.collection('products');
+
+        console.log(`Attempting to update product with ID: ${productId}`);
+        const result = await collection.updateOne({ _id: new ObjectId(productId) }, { $set: updatedProduct });
+
+        if (result.modifiedCount === 1) {
+            res.status(200).json({ message: 'Product updated successfully', product: updatedProduct });
+        } else {
+            res.status(404).json({ message: 'Product not found or no changes made' });
+        }
+    } catch (err) {
+        console.error('Error updating product:', err);
+        res.status(500).json({ error: 'Error updating product', details: err.message });
+    } finally {
+        await client.close();
+    }
+});
+
+
+// Product deletion route
+app.delete('/api/products/:id', async (req, res) => {
+    const client = new MongoClient(url, { serverSelectionTimeoutMS: 5000 });
+    const productId = req.params.id;
+
+    try {
+        await client.connect();
+        const db = client.db(dbName);
+        const collection = db.collection('products');
+
+        console.log(`Attempting to delete product with ID: ${productId}`);
+
+        const result = await collection.deleteOne({ _id: new ObjectId(productId) });
+
+        if (result.deletedCount === 1) {
+            res.status(200).json({ message: 'Product deleted successfully' });
+        } else {
+            res.status(404).json({ message: 'Product not found' });
+        }
+    } catch (err) {
+        console.error('Error deleting product:', err);
+        res.status(500).json({ error: 'Error deleting product', details: err.message });
+    } finally {
+        await client.close();
     }
 });
 
