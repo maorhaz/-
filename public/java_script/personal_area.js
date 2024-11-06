@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         } else {
             renderOrders(data);
             loginMessage.style.display = "none";
+            ordersContainer.style.display = "block";
         }
     } catch (error) {
         console.error("Error fetching orders:", error);
@@ -33,21 +34,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
-function renderOrders(order) {
+function renderOrders(orders) {
     const ordersList = document.getElementById("orders-list");
     ordersList.innerHTML = "";
-    
-    const card = document.createElement("div");
-    card.className = "card mb-3";
-    card.innerHTML = `
-        <div class="card-body">
-            <h5 class="card-title">מספר הזמנה: ${order.order_id}</h5>
-            <p class="card-text"><strong>תאריך הזמנה:</strong> ${new Date(order.order_date).toLocaleDateString("he-IL")}</p>
-            <p class="card-text"><strong>סטטוס:</strong> ${order.status}</p>
-            <p class="card-text"><strong>סה"כ לתשלום:</strong> ${order.total_amount}</p>
-            <p class="card-text"><strong>כתובת למשלוח:</strong> ${order.shipping_address}</p>
-        </div>
-    `;
-    ordersList.appendChild(card);
-    ordersContainer.style.display = "block";
+
+    orders.forEach(order => {
+        const card = document.createElement("div");
+        card.className = "card mb-3";
+        card.innerHTML = `
+            <div class="card-body">
+                <h5 class="card-title">מספר הזמנה: ${order.order_id}</h5>
+                <p class="card-text"><strong>תאריך הזמנה:</strong> ${new Date(order.order_date).toLocaleDateString("he-IL")}</p>
+                <p class="card-text"><strong>סטטוס:</strong> ${order.status}</p>
+                <p class="card-text"><strong>סה"כ לתשלום:</strong> ${order.total_amount}</p>
+                <p class="card-text"><strong>כתובת למשלוח:</strong> ${order.shipping_address}</p>
+            </div>
+        `;
+        ordersList.appendChild(card);
+    });
 }
