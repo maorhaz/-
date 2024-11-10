@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/header-footer.css">
 </head>
+
 <body>
     <!-- Header -->
     <header class="topbar">
@@ -15,9 +17,10 @@
                     <img src="../resources/images/general/logo.jpg" alt="Shop Icon">
                 </a>
             </div>
+
             <nav class="topbar-right">
                 <ul>
-                    <li><a href="../html/menu.html"><i class="bi bi-list"></i></a></li>
+                    <li><a href="#" class="menu-icon"><i class="bi bi-list"></i></a></li>
                     <li>
                         <button id="logout-button" class="btn btn-danger" style="display: none;">התנתק</button>
                     </li>
@@ -25,7 +28,7 @@
                         <a href="../html/login.html"><i class="bi bi-person"></i></a>
                         <div class="greeting-text">
                             <span id="greeting">שלום, אורח</span>
-                        </div>                        
+                        </div>
                     </li>
 
                     <li><a href="../html/cart.html"><i class="bi bi-cart2"></i></a></li>
@@ -35,6 +38,65 @@
             </nav>
         </div>
     </header>
+
+    <!-- Search Panel -->
+    <div id="search-overlay" class="search-overlay">
+        <div class="search-container">
+            <div class="search-input-wrapper">
+                <input type="text" id="search-input" placeholder="חפש מוצרים...">
+                <button id="close-search">&times;</button>
+            </div>
+            <div id="search-results"></div>
+            <button id="view-all-results">צפה בכל התוצאות</button>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">תפריט</div>
+        <div class="sidebar-content">
+            <a href="meat_page.html" class="sidebar-item">
+                <i class="bi bi-chevron-left"></i>
+                <span class="sidebar-item-text">בשר</span>
+                <img src="../resources/images/general/sidebar_meat.jpg" alt="בשר" class="sidebar-item-image">
+            </a>
+            <a href="chicken_page.html" class="sidebar-item">
+                <i class="bi bi-chevron-left"></i>
+                <span class="sidebar-item-text">עוף</span>
+                <img src="../resources/images/general/sidebar_chicken.jpg" alt="עוף" class="sidebar-item-image">
+            </a>
+            <a href="fish_page.html" class="sidebar-item">
+                <i class="bi bi-chevron-left"></i>
+                <span class="sidebar-item-text">דגים</span>
+                <img src="/public/resources/images/general/sidebar_fish.jpg" alt="דגים" class="sidebar-item-image">
+            </a>
+            <a href="cheese_page.html" class="sidebar-item">
+                <i class="bi bi-chevron-left"></i>
+                <span class="sidebar-item-text">גבינות</span>
+                <img src="/public/resources/images/general/sidebar_cheese.jpg" alt="גבינות" class="sidebar-item-image">
+            </a>
+            <a href="pantry_page.html" class="sidebar-item">
+                <i class="bi bi-chevron-left"></i>
+                <span class="sidebar-item-text">מוצרי מזווה</span>
+                <img src="/public/resources/images/general/sidebar_pantry.jpg" alt="מוצרי מזווה"
+                    class="sidebar-item-image">
+            </a>
+            <a href="alcohol_page.html" class="sidebar-item">
+                <i class="bi bi-chevron-left"></i>
+                <span class="sidebar-item-text">יין</span>
+                <img src="/public/resources/images/general/sidebar_wine.jpg" alt="יין" class="sidebar-item-image">
+            </a>
+            <a href="required.html" class="sidebar-item">
+                <span class="sidebar-item-text">בואו לעבוד איתנו</span>
+            </a>
+            <a href="contact.html" class="sidebar-item">
+                <span class="sidebar-item-text">צרו קשר</span>
+            </a>
+            <a href="personal_area.html" class="sidebar-item">
+                <span class="sidebar-item-text">אזור אישי</span>
+            </a>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -49,10 +111,12 @@
                     </ul>
                     <h3>עקבו אחרינו</h3>
                     <div class="social-icons">
-                        <a href="https://www.instagram.com/amigos.savyon?igsh=dWtibGxyNHJhdm9i" target="_blank" rel="noopener">
+                        <a href="https://www.instagram.com/amigos.savyon?igsh=dWtibGxyNHJhdm9i" target="_blank"
+                            rel="noopener">
                             <i class="bi bi-instagram"></i>
                         </a>
-                        <a href="https://www.facebook.com/share/pUvjpWEqeX8crnNz/?mibextid=LQQJ4d" target="_blank" rel="noopener">
+                        <a href="https://www.facebook.com/share/pUvjpWEqeX8crnNz/?mibextid=LQQJ4d" target="_blank"
+                            rel="noopener">
                             <i class="bi bi-facebook"></i>
                         </a>
                     </div>
@@ -97,7 +161,8 @@
                                 <i class="bi bi-whatsapp"></i>
                             </div>
                         </a>
-                        <a href="https://maps.app.goo.gl/RCuSFj5AbkjctnBu5" target="_blank" rel="noopener" class="contact-item">
+                        <a href="https://maps.app.goo.gl/RCuSFj5AbkjctnBu5" target="_blank" rel="noopener"
+                            class="contact-item">
                             <div class="contact-text">
                                 <span class="label">כתובת</span>
                                 <span class="info">השקמה 1, סביון</span>
@@ -114,5 +179,7 @@
             <p>© 2024 אמיגוס. כל הזכויות שמורות.</p>
         </div>
     </footer>
+   
 </body>
+
 </html>

@@ -1,3 +1,5 @@
+
+
 /* Topbar */
 .topbar {
     background-color: rgb(237, 226, 226);
@@ -114,7 +116,90 @@
     fill: #c6be45;
 }
 
-/* User section styles */
+/* Sidebar */
+.sidebar {
+    height: 100%;
+    width: 300px;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    right: -300px;
+    background-color: #ffffff;
+    overflow-y: auto;
+    transition: 0.30s ease-in-out;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar.open {
+    right: 0;
+}
+
+.sidebar-header {
+    background-color: #f8f9fa;
+    padding: 15px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.sidebar-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    text-decoration: none;
+    color: #333;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.sidebar-item:hover {
+    background-color: #f8f9fa;
+}
+
+.sidebar-item .bi-chevron-left {
+    margin-right: 15px;
+    color: #6c757d;
+    font-size: 16px;
+}
+
+.sidebar-item-text {
+    flex-grow: 1;
+    text-align: right;
+    margin: 0 15px;
+    font-size: 16px;
+}
+
+.sidebar-item-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+body {
+    transition: margin-right 0.3s ease-in-out;
+}
+
+body.sidebar-open {
+    margin-right: 300px;
+}
+
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        right: -100%;
+    }
+    
+    body.sidebar-open {
+        margin-right: 0;
+    }
+}
+/* User section */
 .user-section {
     display: flex;
     align-items: center;
@@ -151,7 +236,7 @@
     background-color: #b5ae3e;
 }
 
-/* Search overlay styles */
+/* Search overlay */
 .search-overlay {
     position: fixed;
     top: 0;
@@ -332,41 +417,6 @@
     padding: 10px;
     width: 100%;
     cursor: pointer;
-}
-
-/* Advanced search */
-#advanced-search {
-    background-color: #f5f5f5;
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
-}
-
-#advanced-search h3 {
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 16px;
-}
-
-#advanced-search-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-#advanced-search-options select,
-#advanced-search-options input {
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-}
-
-#advanced-search-options select {
-    background-color: white;
-}
-
-#advanced-search-options input[type="number"] {
-    width: 100px;
 }
 
 /* Footer */

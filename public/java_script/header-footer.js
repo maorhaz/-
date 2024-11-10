@@ -18,8 +18,9 @@
                     document.body.appendChild(footer);
                 }
 
-                setGreeting()
+                setGreeting();
                 initSearch();
+                initSidebar();
             })
             .catch(error => console.error('Error loading header-footer:', error));
     });
@@ -37,7 +38,7 @@
             greeting.textContent = `ברוך הבא, ${username}!`;
             logoutButton.style.display = 'block'; 
         } else {
-            greeting.textContent = 'ברוך הבא, אורח!';
+            greeting.textContent = 'ברוך הבא, אורח';
             logoutButton.style.display = 'none'; 
         }
     
@@ -47,41 +48,92 @@
             window.location.href = '../html/login.html'; 
         });
     }
+
+    function initSidebar() {
+        const menuIcon = document.querySelector('.menu-icon');
+        if (!menuIcon) {
+            console.error('Menu icon not found');
+            return;
+        }
     
+       
+        const sidebar = document.createElement('div');
+        sidebar.className = 'sidebar';
+        sidebar.innerHTML = `
+            <div class="sidebar-header">תפריט</div>
+            <div class="sidebar-content">
+                <a href="meat_page.html" class="sidebar-item">
+                    <img src="../resources/images/general/sidebar_meat.jpg" alt="בשר" class="sidebar-item-image">
+                    <span class="sidebar-item-text">בשר</span>
+                    <i class="bi bi-chevron-left"></i>
+                </a>
+                <a href="chicken_page.html" class="sidebar-item">
+                    <img src="../resources/images/general/sidebar_chicken.jpg" alt="עוף" class="sidebar-item-image">
+                    <span class="sidebar-item-text">עוף</span>
+                    <i class="bi bi-chevron-left"></i>
+                </a>
+                <a href="fish_page.html" class="sidebar-item">
+                    <img src="../resources/images/general/sidebar_fish.jpg" alt="דגים" class="sidebar-item-image">
+                    <span class="sidebar-item-text">דגים</span>
+                    <i class="bi bi-chevron-left"></i>
+                </a>
+                <a href="cheese_page.html" class="sidebar-item">
+                    <img src="../resources/images/general/sidebar_cheese.jpg" alt="גבינות" class="sidebar-item-image">
+                    <span class="sidebar-item-text">גבינות</span>
+                    <i class="bi bi-chevron-left"></i>
+                </a>
+                <a href="pantry_page.html" class="sidebar-item">
+                    <img src="../resources/images/general/sidebar_pantry.jpg" alt="מוצרי מזווה" class="sidebar-item-image">
+                    <span class="sidebar-item-text">מוצרי מזווה</span>
+                    <i class="bi bi-chevron-left"></i>
+                </a>
+                <a href="alcohol_page.html" class="sidebar-item">
+                    <img src="../resources/images/general/sidebar_wine.jpg" alt="יין" class="sidebar-item-image">
+                    <span class="sidebar-item-text">יין</span>
+                    <i class="bi bi-chevron-left"></i>
+                </a>
+                  <a href="required.html" class="sidebar-item">
+                <span class="sidebar-item-text">בואו לעבוד איתנו</span>
+            </a>
+            <a href="contact.html" class="sidebar-item">
+                <span class="sidebar-item-text">צרו קשר</span>
+            </a>
+             <a href="personal_area.html" class="sidebar-item">
+                <span class="sidebar-item-text">אזור אישי</span>
+            </a>
+            </div>
+            
+        `;
+        document.body.appendChild(sidebar);
+    
+        menuIcon.addEventListener('click', () => toggleSidebar(sidebar));
+    
+        // close sidebar when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!sidebar.contains(event.target) && !menuIcon.contains(event.target) && sidebar.classList.contains('open')) {
+                toggleSidebar(sidebar);
+            }
+        });
+    }
+
+    // toggle the sidebar
+    function toggleSidebar(sidebar) {
+        sidebar.classList.toggle('open');
+        document.body.classList.toggle('sidebar-open');
+    }
 
     function initSearch() {
         const searchIcon = document.getElementById('search-icon');
         const searchOverlay = document.createElement('div');
         searchOverlay.id = 'search-overlay';
         searchOverlay.className = 'search-overlay';
+        
+        // search overlay without filters
         searchOverlay.innerHTML = `
             <div class="search-container">
                 <div class="search-input-wrapper">
                     <input type="text" id="search-input" placeholder="חפש מוצרים...">
                     <button id="close-search">&times;</button>
-                </div>
-                <div id="advanced-search">
-                    <h3>חיפוש מתקדם</h3>
-                    <div id="advanced-search-options">
-                        <select id="search-category">
-                            <option value="">בחר קטגוריה</option>
-                            <option value="meat">בשר</option>
-                            <option value="chicken">עוף</option>
-                            <option value="cheese">גבינות</option>
-                            <option value="fish">דגים</option>
-                            <option value="alcohol">אלכוהול</option>
-                            <option value="pantry">מוצרי מזווה</option>
-                        </select>
-                        <input type="number" id="min-price" placeholder="מחיר מינימום">
-                        <input type="number" id="max-price" placeholder="מחיר מקסימום">
-                        <select id="sort-by">
-                            <option value="">מיין לפי</option>
-                            <option value="price-asc">מחיר: מהנמוך לגבוה</option>
-                            <option value="price-desc">מחיר: מהגבוה לנמוך</option>
-                            <option value="name-asc">שם: א-ת</option>
-                            <option value="name-desc">שם: ת-א</option>
-                        </select>
-                    </div>
                 </div>
                 <div id="search-results"></div>
                 <button id="view-all-results">צפה בכל התוצאות</button>
@@ -93,9 +145,8 @@
         const searchInput = document.getElementById('search-input');
         const searchResults = document.getElementById('search-results');
         const viewAllResults = document.getElementById('view-all-results');
-        const advancedSearchOptions = document.getElementById('advanced-search-options');
 
-        if (!searchIcon || !searchOverlay || !closeSearch || !searchInput || !searchResults || !viewAllResults || !advancedSearchOptions) {
+        if (!searchIcon || !searchOverlay || !closeSearch || !searchInput || !searchResults || !viewAllResults) {
             console.error('Some search elements are missing from the page');
             return;
         }
@@ -111,21 +162,24 @@
             }
         });
 
-        searchInput.addEventListener('input', performSearch);
-        advancedSearchOptions.addEventListener('change', performSearch);
-
-        viewAllResults.addEventListener('click', function() {
-            const searchParams = getSearchParams();
-            const queryString = new URLSearchParams(searchParams).toString();
-            window.location.href = `search_results.html?${queryString}`;
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.trim();
+            if (searchTerm.length > 0) {
+                const filtered = filterProducts(searchTerm);
+                displaySearchResults(filtered.slice(0, 5), searchResults);
+                viewAllResults.style.display = 'block';
+            } else {
+                searchResults.innerHTML = '';
+                viewAllResults.style.display = 'none';
+            }
         });
 
-       
-        if (window.location.pathname.includes('search_results.html')) {
-            const urlParams = new URLSearchParams(window.location.search);
-            setSearchParamsFromUrl(urlParams);
-            performSearch();
-        }
+        viewAllResults.addEventListener('click', function() {
+            const searchTerm = searchInput.value.trim();
+            if (searchTerm) {
+                window.location.href = `../html/search_results.html?query=${encodeURIComponent(searchTerm)}`;
+            }
+        });
     }
 
     function fetchProducts() {
@@ -138,87 +192,22 @@
             .catch(error => console.error('Error fetching products:', error));
     }
 
-    function openSearchOverlay(overlay, input) {
-        overlay.style.display = 'flex';
-        input.focus();
-    }
-
-    function closeSearchOverlay(overlay, input, results) {
-        overlay.style.display = 'none';
-        input.value = '';
-        results.innerHTML = '';
-        resetAdvancedSearchOptions();
-    }
-
-    function resetAdvancedSearchOptions() {
-        document.getElementById('search-category').value = '';
-        document.getElementById('min-price').value = '';
-        document.getElementById('max-price').value = '';
-        document.getElementById('sort-by').value = '';
-    }
-
-    function getSearchParams() {
-        return {
-            query: document.getElementById('search-input').value,
-            category: document.getElementById('search-category').value,
-            minPrice: document.getElementById('min-price').value,
-            maxPrice: document.getElementById('max-price').value,
-            sortBy: document.getElementById('sort-by').value
-        };
-    }
-
-    function setSearchParamsFromUrl(urlParams) {
-        document.getElementById('search-input').value = urlParams.get('query') || '';
-        document.getElementById('search-category').value = urlParams.get('category') || '';
-        document.getElementById('min-price').value = urlParams.get('minPrice') || '';
-        document.getElementById('max-price').value = urlParams.get('maxPrice') || '';
-        document.getElementById('sort-by').value = urlParams.get('sortBy') || '';
-    }
-
-    function performSearch() {
-        const searchParams = getSearchParams();
-        const filteredProducts = filterProducts(searchParams);
-        const sortedProducts = sortProducts(filteredProducts, searchParams.sortBy);
-        displaySearchResults(sortedProducts, document.getElementById('search-results'));
-    }
-
-    function filterProducts(params) {
-        return products.filter(product => {
-            const matchesQuery = !params.query || product.name.toLowerCase().includes(params.query.toLowerCase()) ||
-                                 (product.description && product.description.toLowerCase().includes(params.query.toLowerCase()));
-            const matchesCategory = !params.category || product.category === params.category;
-            const matchesMinPrice = !params.minPrice || product.price >= parseFloat(params.minPrice);
-            const matchesMaxPrice = !params.maxPrice || product.price <= parseFloat(params.maxPrice);
-            
-            return matchesQuery && matchesCategory && matchesMinPrice && matchesMaxPrice;
-        });
-    }
-
-    function sortProducts(products, sortBy) {
-        switch (sortBy) {
-            case 'price-asc':
-                return products.sort((a, b) => a.price - b.price);
-            case 'price-desc':
-                return products.sort((a, b) => b.price - a.price);
-            case 'name-asc':
-                return products.sort((a, b) => a.name.localeCompare(b.name));
-            case 'name-desc':
-                return products.sort((a, b) => b.name.localeCompare(a.name));
-            default:
-                return products;
-        }
+    function filterProducts(searchTerm) {
+        return products.filter(product => 
+            product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (product.description && product.description.toLowerCase().includes(searchTerm.toLowerCase()))
+        );
     }
 
     function displaySearchResults(results, container) {
         container.innerHTML = '';
+        
         if (results.length === 0) {
             container.innerHTML = '<p class="no-results">אין תוצאות חיפוש.</p>';
             return;
         }
 
-        const resultsToShow = results.slice(0, 5);
-
-        resultsToShow.forEach(product => {
+        results.forEach(product => {
             const resultItem = createResultItem(product);
             container.appendChild(resultItem);
         });
@@ -228,7 +217,10 @@
         const resultItem = document.createElement('div');
         resultItem.className = 'search-result-item';
         resultItem.innerHTML = `
-            <img class="search-result-image" src="../resources/images/product_id_photos/${product.product_id}.jpg" alt="${product.name}" onerror="this.src='../resources/images/product_id_photos/${product.product_id}.png'">
+            <img class="search-result-image" 
+                 src="../resources/images/product_id_photos/${product.product_id}.jpg" 
+                 alt="${product.name}" 
+                 onerror="this.src='../resources/images/product_id_photos/${product.product_id}.png'">
             <div class="search-result-info">
                 <h3 class="search-result-name">${product.name}</h3>
                 <p class="search-result-description">${product.description || 'תיאור מוצר לא זמין'}</p>
@@ -245,7 +237,9 @@
         productDetailOverlay.innerHTML = `
             <div class="product-detail-content">
                 <button class="close-product-detail">&times;</button>
-                <img src="../resources/images/product_id_photos/${product.product_id}.jpg" alt="${product.name}" onerror="this.src='../resources/images/product_id_photos/${product.product_id}.png'">
+                <img src="../resources/images/product_id_photos/${product.product_id}.jpg" 
+                     alt="${product.name}" 
+                     onerror="this.src='../resources/images/product_id_photos/${product.product_id}.png'">
                 <h2>${product.name}</h2>
                 <p>${product.description || 'תיאור מוצר לא זמין'}</p>
                 <p class="price">₪${product.price}</p>
@@ -259,10 +253,65 @@
         });
 
         productDetailOverlay.querySelector('.add-to-cart').addEventListener('click', () => {
-            console.log('Adding to cart:', product);
-            
+            addToCart(product);
+            document.body.removeChild(productDetailOverlay);
         });
+    }
+
+    function openSearchOverlay(overlay, input) {
+        overlay.style.display = 'flex';
+        input.focus();
+    }
+
+    function closeSearchOverlay(overlay, input, results) {
+        overlay.style.display = 'none';
+        input.value = '';
+        results.innerHTML = '';
+        if(document.getElementById('view-all-results')) {
+            document.getElementById('view-all-results').style.display = 'none';
+        }
+    }
+
+    function addToCart(product) {
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        
+        const existingItem = cartItems.find(item => item.id === product.product_id);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cartItems.push({
+                id: product.product_id,
+                name: product.name,
+                price: product.price,
+                quantity: 1
+            });
+        }
+
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        
+        const customerId = sessionStorage.getItem('customerId');
+        const username = sessionStorage.getItem('username');
+
+        if (customerId && username) {
+            const cartData = {
+                customerId: customerId,
+                username: username,
+                cartItems: cartItems
+            };
+
+            fetch('http://localhost:3000/update-cart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(cartData)
+            })
+            .catch(error => console.error('Error updating cart:', error));
+        }
+
+        alert('המוצר נוסף לסל בהצלחה!');
     }
 })();
 
-console.log('Header, footer, and advanced search functionality loaded');
+console.log('Header and footer loaded');
