@@ -32,7 +32,7 @@
         const logoutButton = document.getElementById('logout-button');
     
         if (adminName) {
-            greeting.textContent = `ברוך הבא, מנהל ${adminName}!`;
+            greeting.textContent = `ברוך הבא, ${adminName}!`;
             logoutButton.style.display = 'block'; 
         } else if (username) {
             greeting.textContent = `ברוך הבא, ${username}!`;

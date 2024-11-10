@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const adminLoginForm = document.querySelector('.form-admin-login');
     
-    // Admin login functionality
+    // Admin login
     if (adminLoginForm) {
         adminLoginForm.addEventListener('submit', async function(e) {
             e.preventDefault();

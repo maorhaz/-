@@ -1,0 +1,48 @@
+body {
+    font-family: 'Heebo', sans-serif;
+    background-color: #EAE5E0;
+}
+.btn-primary {
+    background-color: #c6be45;
+    border-color: black;
+    transition: all 0.3s ease;
+}
+.btn-primary:hover {
+    background-color: #cabd0d;
+    border-color: black;
+    color: black;
+}
+.table-container {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+.table-container.show {
+    opacity: 1;
+}
+.card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+.apply-btn {
+    background-color: #c6be45;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.apply-btn:hover {
+    background-color: #cabd0d;
+}
+.view-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
