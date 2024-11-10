@@ -16,8 +16,8 @@ $(document).ready(function() {
                     response.data.forEach(function(post) {
                         const imageHtml = post.full_picture ? `<img src="${post.full_picture}" class="card-img-top" alt="Post image">` : '';
                         const postContent = `
-                            <div class="col-md-3">
-                                <div class="card mb-4">
+                            <div class="col-md-5">
+                                <div class="card mb-4 fb-post">
                                     ${imageHtml}
                                     <div class="card-body">
                                         <p>${post.message || 'No message available'}</p>

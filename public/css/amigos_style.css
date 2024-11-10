@@ -378,49 +378,57 @@ body {
 .facebook-posts {
     background-color: #ffffff;
     padding: 60px 0;
-}
-
-.facebook-posts h2 {
-    color: #000000;
+  }
+  
+  .facebook-posts h2 {
+    color: #000000; 
     font-size: 2.5rem;
     text-align: center;
     margin-bottom: 40px;
-}
-
-#facebook-feed {
+  }
+  
+  #facebook-feed {
     display: flex; 
     flex-wrap: wrap; 
     justify-content: center; 
-    gap: 10px; 
-}
-
-.fb-post {
-    background-color: #ffffff; 
+    gap: 20px; 
+  }
+  
+  .fb-post {
+    background-color: #ffffff ; 
     color: #ffffff; 
     border: none; 
     border-radius: 10px; 
     position: relative; 
     padding: 20px; 
     width: 100%; 
-    max-width: 300px; 
-    transition: background-color 0.3s ease, box-shadow 0.3s ease; 
+    max-width: 800px; 
     overflow: hidden; 
-}
-
-.fb-post .card-title, 
-.fb-post .card-text {
-    color: white; 
-}
-
-.fb-post a {
-    color: rgba(255, 215, 0, 0.8); 
+  }
+  
+  .fb-post img {
+    max-width: 100%; 
+    height: auto; 
+    display: block; 
+    margin: 0 auto 20px; 
+    border-radius: 10px; 
+  }
+  
+  .fb-post .card-title, 
+  .fb-post .card-text {
+    color: #ffffff; 
+    text-shadow: 1px 1px 2px rgba(250, 250, 250, 0.5); 
+  }
+  
+  .fb-post a {
+    color: #1877f2; 
     text-decoration: none; 
     font-weight: bold; 
-}
-
-.fb-post a:hover {
+  }
+  
+  .fb-post a:hover {
     text-decoration: underline; 
-}
+  }
 
 /* Weather recommendations */
 .weather-container {
