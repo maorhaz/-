@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('clear-cart-button').addEventListener('click', clearCart);
 });
 
-// Load cart items from local storage or initialize if not available
+// load cart items from local storage or initialize if not available
 function loadCart() {
     let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     displayCart(cartItems);
@@ -11,11 +11,11 @@ function loadCart() {
 
 function displayCart(items) {
     const cartContainer = document.querySelector('.cart-items');
-    cartContainer.innerHTML = ''; // Clear existing items
+    cartContainer.innerHTML = ''; // clear existing items
 
     if (items.length === 0) {
         cartContainer.innerHTML = '<p>העגלה ריקה</p>'; 
-        updateCartSummary(items); // Update summary with no items
+        updateCartSummary(items); // update summary with no items
         return;
     }
 
@@ -49,14 +49,14 @@ function updateCartSummary(items) {
 function removeItem(itemId) {
     let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     cartItems = cartItems.filter(item => item.id !== itemId); // Remove item from cart
-    localStorage.setItem('cartItems', JSON.stringify(cartItems)); // Update local storage
+    localStorage.setItem('cartItems', JSON.stringify(cartItems)); 
     loadCart(); // Reload cart
     updateCartInDatabase(cartItems); // Upload cart to MongoDB
 }
 
 function clearCart() {
     localStorage.removeItem('cartItems'); 
-    loadCart(); // Reload cart
+    loadCart(); 
     updateCartInDatabase([]); 
 }
 
@@ -75,7 +75,7 @@ function updateCartInDatabase(cartItems) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(cartData) // Use the cartData variable here
+        body: JSON.stringify(cartData) 
     })
     .then(response => {
         if (!response.ok) {
@@ -106,34 +106,34 @@ document.getElementById('checkout-button').addEventListener('click', async funct
     }
     
     await updateCartInDatabase(cartItems);
-    addPaymentButton(); // Call to add payment button after checkout
+    addPaymentButton(); 
 });
 
 function addPaymentButton() {
     const existingPaymentButton = document.getElementById('payment-button');
     
-    // Check if the payment button already exists
+    
     if (existingPaymentButton) return;
 
     const checkoutButton = document.getElementById('checkout-button');
     
-    // Create the new payment button
+   
     const paymentButton = document.createElement('button');
     paymentButton.id = 'payment-button';
     paymentButton.classList.add('btn', 'btn-success', 'mt-3', 'w-100');
     paymentButton.textContent = 'לתשלום לחץ כאן';
 
-    // Append the new button after the checkout button
+    
     checkoutButton.insertAdjacentElement('afterend', paymentButton);
 
-    // Add event listener to the new payment button
+    
     paymentButton.addEventListener('click', async function() {
         const customerId = sessionStorage.getItem('customerId');
 
         const response = await fetch(`http://localhost:3000/get-shipping-address/${customerId}`);
         const data = await response.json();
 
-        // Check if the shipping address and city were successfully retrieved
+        // check if the shipping address and city were successfully retrieved
         if (!response.ok || !data.address || !data.city) {
             alert('Failed to retrieve shipping details. Please try again later.');
             return;
@@ -144,7 +144,7 @@ function addPaymentButton() {
         const totalAmount =  document.getElementById('total-amount').textContent;
 
         const orderData = {
-            order_id: generateUniqueId(), // Function to generate a unique order ID
+            order_id: generateUniqueId(), // function to generate a unique order ID
             customer_id: customerId,
             order_date: new Date().toISOString(),
             total_amount: totalAmount,
@@ -167,8 +167,8 @@ function addPaymentButton() {
         })
         .then(data => {
             alert('בוצע בהצלחה! ההזמנה מופיעה באזור האישי.');
-            localStorage.removeItem('cartItems'); // Clear cart after successful order
-            loadCart(); // Reload the empty cart
+            localStorage.removeItem('cartItems'); // clear cart after successful order
+            loadCart(); 
         })
         .catch(error => {
             console.error('Error creating order:', error);
@@ -178,5 +178,5 @@ function addPaymentButton() {
 }
 
 function generateUniqueId() {
-    return 'id-' + Math.random().toString(36).substr(2, 9); // Generates a random unique ID
+    return 'id-' + Math.random().toString(36).substr(2, 9); // generates a random unique ID
 }

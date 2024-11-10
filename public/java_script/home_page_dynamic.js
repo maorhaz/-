@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    // Simulated data (replace with actual data from your backend)
+    // Simulated data (replace with actual data from backend)
     const items = [
         { class: 'meat', title: 'בקר', imgSrc: '../resources/images/categories_pics/meat2.jpg' },
         { class: 'fish', title: 'דגים', imgSrc: '../resources/images/categories_pics/fish.jpg' },

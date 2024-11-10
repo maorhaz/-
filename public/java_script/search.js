@@ -3,14 +3,14 @@ let products = [];
 function initSearch() {
     fetchProducts();
 
-    if (window.location.pathname.includes('search_results.html')) {
+    if (window.location.pathname.includes('search_results.html')) { //check which page we are on
         setupSearchResultsPage();
     } else {
         setupSearchOverlay();
     }
 }
 
-function setupSearchOverlay() {
+function setupSearchOverlay() { //get all elements we need
     const searchIcon = document.getElementById('search-icon');
     const searchOverlay = document.getElementById('search-overlay');
     const closeSearch = document.getElementById('close-search');
@@ -23,7 +23,7 @@ function setupSearchOverlay() {
         searchInput.focus();
     });
 
-    closeSearch?.addEventListener('click', closeSearchOverlay);
+    closeSearch?.addEventListener('click', closeSearchOverlay); //close when X is clicked 
 
     searchIcon?.addEventListener('click', () => {
         searchInput.value = '';
@@ -31,7 +31,7 @@ function setupSearchOverlay() {
         viewAllResults.style.display = 'none';
     });
 
-    searchInput?.addEventListener('input', () => {
+    searchInput?.addEventListener('input', () => { //show results when user types
         const searchTerm = searchInput.value.trim();
         if (searchTerm.length > 0) {
             const filtered = products.filter(product => 
@@ -53,7 +53,7 @@ function setupSearchOverlay() {
         }
     });
 
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', (e) => { //close overlay when ESC key is pressed
         if (e.key === 'Escape' && searchOverlay?.style.display === 'flex') {
             closeSearchOverlay();
         }
@@ -61,7 +61,7 @@ function setupSearchOverlay() {
 }
 
 function setupSearchResultsPage() {
-    // Get all filter elements
+    // get all filter elements
     const searchInput = document.getElementById('search-input');
     const searchButton = document.getElementById('search-button');
     const descriptionSearch = document.getElementById('description-search');
@@ -74,16 +74,16 @@ function setupSearchResultsPage() {
         searchInput.value = urlParams.get('query') || '';
     }
 
-    // Add event listeners
+
     searchInput?.addEventListener('input', debounce(performSearch, 300));
     
-    // Handle search button click
+    //search when button clicked
     searchButton?.addEventListener('click', (e) => {
         e.preventDefault();
         performSearch();
     });
 
-    // Handle Enter key in search input
+    // search when enter key clicked
     searchInput?.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
@@ -96,14 +96,14 @@ function setupSearchResultsPage() {
     priceRange?.addEventListener('change', performSearch);
     sortBy?.addEventListener('change', performSearch);
 
-    // Initial search
+    // initial search
     performSearch();
 }
-function performSearch() {
+function performSearch() { //main search function
     console.log('Performing search...');
     let filtered = [...products];
 
-    // Get all filter values
+    //get all filter values
     const searchInput = document.getElementById('search-input')?.value.trim().toLowerCase();
     const descriptionSearch = document.getElementById('description-search')?.value.trim().toLowerCase();
     const categoryValue = document.getElementById('category')?.value;
@@ -118,7 +118,7 @@ function performSearch() {
         sortBy 
     });
 
-    // Apply text filters
+    //text filters
     if (searchInput || descriptionSearch) {
         filtered = filtered.filter(product => {
             let matches = true;
@@ -132,7 +132,7 @@ function performSearch() {
         });
     }
 
-    // Apply category filter
+    //category filter
     if (categoryValue) {
         console.log('Filtering by category:', categoryValue);
         filtered = filtered.filter(product => {
@@ -141,7 +141,7 @@ function performSearch() {
         });
     }
 
-    // Apply price range filter
+    //price range filter
     if (priceRange) {
         const [min, max] = priceRange.split('-').map(Number);
         filtered = filtered.filter(product => {
@@ -149,11 +149,11 @@ function performSearch() {
             if (max) {
                 return price >= min && price <= max;
             }
-            return price >= min; // For "200+" case
+            return price >= min; //for "200+" case
         });
     }
 
-    // Apply sorting
+    //sorting
     if (sortBy) {
         filtered.sort((a, b) => {
             switch (sortBy) {
@@ -184,7 +184,7 @@ function displaySearchResults(results) {
         return;
     }
 
-    results.forEach(product => {
+    results.forEach(product => { //create card for each product
         const card = document.createElement('div');
         card.className = 'product-card';
         card.innerHTML = `
@@ -209,7 +209,7 @@ function displaySearchResults(results) {
             addToCart(productData);
         });
 
-        card.addEventListener('click', () => showProductDetails(product));
+        card.addEventListener('click', () => showProductDetails(product)); 
         container.appendChild(card);
     });
 }
@@ -278,7 +278,7 @@ function showProductDetails(product) {
     });
 }
 
-function addToCart(product) {
+function addToCart(product) { //add product to the shopping cart
     let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     
     const existingItem = cartItems.find(item => item.id === product.product_id);
@@ -337,7 +337,7 @@ function fetchProducts() {
         });
 }
 
-function debounce(func, wait) {
+function debounce(func, wait) { //helper to prevent too many searches
     let timeout;
     return function executedFunction(...args) {
         const later = () => {

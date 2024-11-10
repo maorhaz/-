@@ -8,12 +8,12 @@
                 const tempDiv = document.createElement('div');
                 tempDiv.innerHTML = data;
 
-                const header = tempDiv.querySelector('header');
+                const header = tempDiv.querySelector('header');  // insert header at the beginning of the body
                 if (header) {
                     document.body.insertAdjacentElement('afterbegin', header);
                 }
 
-                const footer = tempDiv.querySelector('footer');
+                const footer = tempDiv.querySelector('footer'); // footer at the end of the body
                 if (footer) {
                     document.body.appendChild(footer);
                 }
@@ -25,7 +25,7 @@
             .catch(error => console.error('Error loading header-footer:', error));
     });
 
-    function setGreeting() {
+    function setGreeting() { // different greeting for admin, user or guest
         const username = sessionStorage.getItem('username'); 
         const adminName = sessionStorage.getItem('adminName'); 
         const greeting = document.getElementById('greeting');
@@ -42,9 +42,10 @@
             logoutButton.style.display = 'none'; 
         }
     
-        logoutButton.addEventListener('click', function() {
+        logoutButton.addEventListener('click', function() { // logout functionality
             sessionStorage.removeItem('username');
             sessionStorage.removeItem('adminName'); 
+            sessionStorage.removeItem('customerId');
             window.location.href = '../html/login.html'; 
         });
     }
@@ -106,7 +107,7 @@
         `;
         document.body.appendChild(sidebar);
     
-        menuIcon.addEventListener('click', () => toggleSidebar(sidebar));
+        menuIcon.addEventListener('click', () => toggleSidebar(sidebar)); // toggle sidebar on menu icon click
     
         // close sidebar when clicking outside
         document.addEventListener('click', (event) => {
@@ -160,7 +161,7 @@
             if (e.key === 'Escape' && searchOverlay.style.display === 'flex') {
                 closeSearchOverlay(searchOverlay, searchInput, searchResults);
             }
-        });
+        }); // close search on ESC key
 
         searchInput.addEventListener('input', () => {
             const searchTerm = searchInput.value.trim();
@@ -213,7 +214,7 @@
         });
     }
 
-    function createResultItem(product) {
+    function createResultItem(product) { 
         const resultItem = document.createElement('div');
         resultItem.className = 'search-result-item';
         resultItem.innerHTML = `
@@ -272,7 +273,7 @@
         }
     }
 
-    function addToCart(product) {
+    function addToCart(product) { // add to cart
         let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
         
         const existingItem = cartItems.find(item => item.id === product.product_id);
