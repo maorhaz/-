@@ -1,7 +1,7 @@
 window.onload = function() {
     const adminName = sessionStorage.getItem('adminName');
     if (!adminName) {
-        window.location.href = '../html/admin_login.html'; // Change this to your actual login page URL
+        window.location.href = '../html/admin_login.html';
     }
 };
 
