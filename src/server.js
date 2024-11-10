@@ -15,7 +15,8 @@ console.log('Environment variables:', {
     MONGODB_URL: process.env.MONGODB_URL,
     DB_NAME: process.env.DB_NAME,
     PAGE_ID: process.env.PAGE_ID,
-    ACCESS_TOKEN: process.env.ACCESS_TOKEN
+    ACCESS_TOKEN: process.env.ACCESS_TOKEN,
+    WEATHER_API_KEY: process.env.WEATHER_API_KEY 
 });
 
 app.use(bodyParser.json());
@@ -48,6 +49,14 @@ app.get('/api/config', (_req, res) => {
         accessToken: process.env.ACCESS_TOKEN
     });
 });
+
+// Weather API key route
+app.get('/api/weather-config', (_req, res) => {
+    res.json({
+        apiKey: process.env.WEATHER_API_KEY
+    });
+});
+
 
 // Route to fetch products
 app.get('/api/products', async (_req, res) => {
