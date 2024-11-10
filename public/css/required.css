@@ -52,8 +52,8 @@ body {
     margin-right: 20px;
     margin-bottom: -5px;
     width: 100%;
-    white-space: nowrap; /* Prevents line breaks in the title */
-    text-align: right; /* Aligns the title to the right */
+    white-space: nowrap; 
+    text-align: right; 
 }
 
 .content-wrapper p {
@@ -61,8 +61,8 @@ body {
     margin-right: 20px;
     margin-bottom: 20px;
     font-size: 18px;
-    line-height: 0.79; /* Improves readability */
-    text-align: right; /* Aligns the text to the right */
+    line-height: 0.79; 
+    text-align: right; 
     white-space:nowrap;
 }
 
